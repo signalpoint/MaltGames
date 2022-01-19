@@ -1,0 +1,10 @@
+{
+    "name": "signalpoint/games",
+    "autoload": {
+        "psr-4": {"MaltGames\\": "src/"}
+    },
+    "require": {
+        "twbs/bootstrap": "5.1.3",
+        "cboden/ratchet": "^0.4.4"
+    }
+}
