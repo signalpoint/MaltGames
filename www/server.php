@@ -10,10 +10,8 @@ define('GAME_IN_PROGRESS', 2);
 define('GAME_PAUSED', 3);
 define('GAME_FINISHED', 4);
 
-$gamesDir = dirname(__DIR__) . '/www';
-
-require $gamesDir . '/vendor/autoload.php';
-require $gamesDir . '/games/dictionary.php';
+require 'vendor/autoload.php';
+require 'games/dictionary.php';
 
 // START THE SERVER...
 
@@ -26,5 +24,5 @@ require $gamesDir . '/games/dictionary.php';
       8080
   );
 
-  echo "Running IoServer...\n";
+  echo "Running server...\n";
   $server->run();
