@@ -1,6 +1,6 @@
 var ToastMessage = function(msg, options) {
 
-  var el = document.getElementById('liveToast');
+  var el = game.get('#liveToast');
 
   this._msg = msg;
   this._type = 'primary';
@@ -35,11 +35,19 @@ ToastMessage.prototype = {
 
 };
 
-function toastMessage(msg, type) {
-  var toast = new ToastMessage(msg, {
+Game.prototype.toast = function(msg, type) {
+  var toastMessage = new ToastMessage(msg, {
     type: type
   });
-  toast.show();
+  this.setToast(toastMessage.getToast());
+  toastMessage.show();
+};
+
+/**
+ * @deprecated
+ */
+function toastMessage(msg, type) {
+  game.toast(msg, type);
 }
 
 function toastTypes() {
