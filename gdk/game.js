@@ -1,25 +1,38 @@
-var Game = function() {
+var Game = function(key) {
+
+  if (!key) {
+    console.log(new Error('missing game key'));
+    return;
+  }
 
   var g = this;
 
-  // The domain pointing to the game server.
-  g._domain = null;
+  g._key = key; // The unique game name identifier.
+  g._domain = location.host; // The domain pointing to the game server.
+  g._url = location.protocol + '//' + g._domain; // The domain URL to the game server.
+  g._gameUrl = g._url + '/malt/games/' + key; // The URL to the public facing game.
+  g._audioLibrary = {}; // The audio elements.
+  g._player = null; // The current player.
+  g._players = {}; // All the players.
+  g._status = null; // The status of the game.
+  g._toast = null;
+  g._modal = null;
+  g._version = null; // The semantic version of the game.
+  g._webSocket = null; // The websocket connection.
 
-  g._status = null;
-
-  // The current player.
-  g._player = null;
-
-  // All the players.
-  g._players = {};
-
-  // The websocket connection.
-  g._webSocket = null;
 
 };
 
 Game.prototype = {
 
+  // KEY
+  getKey: function() { return this._key; },
+
+  // VERSION
+  getVersion: function() { return this._version; },
+  setVersion: function(version) { this._version = version; },
+
+  // DOM Elements
   get: function(selector) { return document.querySelector(selector); },
   getAll: function(selector) { return document.querySelectorAll(selector); },
 
@@ -27,9 +40,36 @@ Game.prototype = {
   getDomain: function() { return this._domain; },
   setDomain: function(domain) { this._domain = domain; },
 
+  // URL
+  getUrl: function() { return this._url; },
+  setUrl: function(url) { this._url = url; },
+
+  // GAME URL
+  getGameUrl: function() { return this._gameUrl; },
+  setGameUrl: function(url) { this._gameUrl = url; },
+
+  // AUDIO
+  getAudioLibrary: function() { return this._audioLibrary; },
+  addAudio: function(key, url) {
+    var audio = new Audio(url);
+    // TODO add default listeners
+    this.getAudioLibrary()[key] = audio;
+    return audio;
+  },
+  getAudio: function(key) { return this.getAudioLibrary()[key]; },
+  playAudio: function(key) { this.getAudio(key).play(); },
+
   // STATUS
   getStatus: function() { return this._status; },
   setStatus: function(status) { this._status = status; },
+
+  // TOAST
+  getToast: function() { return this._toast; },
+  setToast: function(toast) { this._toast = toast; },
+
+  // MODAL
+  getModal: function() { return this._modal; },
+  setModal: function(modal) { this._modal = modal; },
 
   // PLAYERS
   getPlayers: function () { return this._players; },
@@ -89,8 +129,6 @@ Game.prototype = {
   setConnection: function(ws) { this._webSocket = ws; },
   connect: function(options) {
 
-//    var self = this;
-
     var url = 'ws://' + this.getDomain() + ':8080';
     var socket = new WebSocket(url);
 
@@ -101,19 +139,7 @@ Game.prototype = {
 
     // MESSAGE (receive)
     socket.addEventListener('message', function (e) {
-
-//      if (e.data) {
-//        var data = JSON.parse(e.data);
-//        var op = data.op;
-//        var request = !!self._requests[op] ? self._requests[op] :  null;
-//        if (request) {
-//          if (request.ok) { request.ok(data, e); }
-////          if (request.error) { request.error(data, e); } // TODO handle the error somewhere else
-//        }
-//      }
-
       !!options.message ? options.message(e) : null;
-
     });
 
     // CLOSE
@@ -135,6 +161,8 @@ Game.prototype = {
   send: function(data) {
     this.getConnection().send(JSON.stringify(data));
   },
+
+  // @deprecated
   _send: function(data, ok, error) {
 
     this._requests[data.op] = {
@@ -146,7 +174,13 @@ Game.prototype = {
     this.getConnection().send(JSON.stringify(data));
 
   },
-  _requests: { }
+
+  // @deprecated
+  _requests: { },
+
+  ui: function(widget) {
+    return this[widget].call(this, arguments.shift);
+  }
 
 };
 
