@@ -1,6 +1,6 @@
 Game.prototype.xhr = function(method, path, data, options) {
   return new Promise(function(resolve, reject) {
-    var url = location.protocol + '//' + location.host + '/malt/' + path;
+    var url = location.protocol + '//' + location.host + '/' + path;
     var req = new XMLHttpRequest();
     req.open(method, url);
     req.setRequestHeader('Content-type', 'application/json');
