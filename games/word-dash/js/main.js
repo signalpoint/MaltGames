@@ -20,8 +20,8 @@ var chatMsgInput = null;
 function loadTheGame() {
 
   // Initialize the Game.
-  game = new Game();
-  game.setDomain('avalinafrankenstein.com');
+  game = new Game('word-dash');
+  game.setVersion('0.0.0');
 
   // Connect to the server and handle connection events...
   game.connect({
