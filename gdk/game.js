@@ -8,9 +8,12 @@ var Game = function(key) {
   var g = this;
 
   g._key = key; // The unique game name identifier.
+  g._protocol = location.protocol.replace(':', ''); // The protocol used by the game server.
   g._domain = location.host; // The domain pointing to the game server.
-  g._url = location.protocol + '//' + g._domain; // The domain URL to the game server.
-  g._gameUrl = g._url + '/malt/games/' + key; // The URL to the public facing game.
+  g._url = g._protocol + '://' + g._domain; // The domain URL to the game server.
+  g._currentUrl = null; // The current URL.
+  g._gameUrl = g._url + '/games/' + key; // The URL to the public facing game.
+  g._path = null; // The current path.
   g._audioLibrary = {}; // The audio elements.
   g._player = null; // The current player.
   g._players = {}; // All the players.
@@ -19,7 +22,6 @@ var Game = function(key) {
   g._modal = null;
   g._version = null; // The semantic version of the game.
   g._webSocket = null; // The websocket connection.
-
 
 };
 
@@ -36,6 +38,10 @@ Game.prototype = {
   get: function(selector) { return document.querySelector(selector); },
   getAll: function(selector) { return document.querySelectorAll(selector); },
 
+  // PROTOCOL
+  getProtocol: function() { return this._protocol; },
+  setProtocol: function(protocol) { this._protocol = protocol; },
+
   // DOMAIN
   getDomain: function() { return this._domain; },
   setDomain: function(domain) { this._domain = domain; },
@@ -44,9 +50,26 @@ Game.prototype = {
   getUrl: function() { return this._url; },
   setUrl: function(url) { this._url = url; },
 
+  // CURRENT URL
+  getCurrentUrl: function() {
+    if (!this._currentUrl) { this.setCurrentUrl(window.location.href); }
+    return this._currentUrl;
+  },
+  setCurrentUrl: function(url) { this._currentUrl = url; },
+
   // GAME URL
   getGameUrl: function() { return this._gameUrl; },
   setGameUrl: function(url) { this._gameUrl = url; },
+
+  // PATH
+  getPath: function() {
+    if (!this._path) { this.setPath(new URL(this.getCurrentUrl()).pathname.substring(1)); }
+    return this._path;
+  },
+  setPath: function(path) { this._path = path; },
+
+  getArgs: function() { return this.getPath().split('/'); },
+  getArg: function(position) { return this.getArgs()[position]; },
 
   // AUDIO
   getAudioLibrary: function() { return this._audioLibrary; },
@@ -129,7 +152,8 @@ Game.prototype = {
   setConnection: function(ws) { this._webSocket = ws; },
   connect: function(options) {
 
-    var url = 'ws://' + this.getDomain() + ':8080';
+    var protocol = this.getProtocol() === 'https' ? 'wss': 'ws';
+    var url = protocol + '://' + this.getDomain() + ':8080';
     var socket = new WebSocket(url);
 
     // OPEN
