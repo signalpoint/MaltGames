@@ -6,16 +6,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Malt Games | Open Source Games</title>
+    <title>MaltGames | Open Source Game Development</title>
     
     <!-- Bootstrap CSS -->
     <link href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- Font Awesome -->
     <script defer src="vendor/fontawesome-free-5.15.4-web/js/all.min.js"></script>
-    
-    <!-- Game Development Kit -->
-    <script src="gdk/toast-message.js"></script>
 
   </head>
 
@@ -25,7 +22,7 @@
       
       <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         
-        <h1>Malt Games</h1>
+        <h1>MaltGames</h1>
         
       </header>
       
@@ -37,54 +34,32 @@
       <h2 class="visually-hidden">Games</h2>
       <div class="row row-cols-1 row-cols-md-2 g-4 text-dark">
         
-        <!-- COLOR PICKER -->
+        <!-- ColorPicker -->
         <div class="col">
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title">Color Picker</h3>
+              <h3 class="card-title">ColorPicker</h3>
               <h6 class="card-subtitle mb-2 text-muted">Learn Color Names</h6>
               <p class="card-text">...</p>
-              <a href="games/color-picker" class="card-link" title="Play Color Picker">Play</a>
+              <a href="game.php?k=color-picker" class="card-link" title="Play ColorPicker">Play</a>
             </div>
           </div>
         </div>
 
-        <!-- WORD DASH -->
+        <!-- WordDash -->
         <div class="col">
           <div class="card">
             <div class="card-body">
-              <h3 class="card-title">Word Dash</h3>
+              <h3 class="card-title">WordDash</h3>
               <h6 class="card-subtitle mb-2 text-muted">Translation Race</h6>
               <p class="card-text">A race to translate as many words as you can.</p>
-              <a href="games/word-dash" class="card-link" title="Play Word Dash">Play</a>
+              <a href="games/word-dash" class="card-link" title="Play WordDash">Play</a>
             </div>
           </div>
         </div>
         
-        <!-- WORD PICKER -->
-<!--        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <h3 class="card-title">Word Picker</h3>
-              <h6 class="card-subtitle mb-2 text-muted">Picker the Translation</h6>
-              <p class="card-text">Translate words as fast as you can by pickering a button.</p>
-              <a href="games/word-picker" class="card-link" title="Play Word Picker">Play</a>
-            </div>
-          </div>
-        </div>-->
-        
       </div>
 
-    </div>
-
-    <!-- MODAL -->
-    <div class="toast-container position-absolute p-3 bottom-0 start-50 translate-middle-x" id="toastPlacement" data-original-class="toast-container position-absolute p-3">
-    <div id="liveToast" class="toast align-items-center text-white border-0" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex">
-        <div class="toast-body"></div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-    </div>
     </div>
 
     <!-- Bootstrap JS -->
