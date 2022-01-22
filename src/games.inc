@@ -15,12 +15,15 @@ function mkGames() {
 
     'color-picker' => [
       'name' => 'ColorPicker',
+      'v' => '0.0.0',
       'slogan' => 'Learn Colors in Another Language',
       'description' => 'See, hear and touch colors! Quickly learn the ' .
         'names of colors.',
+//      'author' => 'tyler-frankenstein',
       'src' => [
         'js' => [
           'main.js',
+          'brain.js',
           'widgets/the-color-to-learn.js',
           'widgets/colored-buttons.js',
           'widgets/score-board.js',
@@ -30,6 +33,7 @@ function mkGames() {
 
     'word-dash' => [
       'name' => 'WordDash',
+      'v' => '0.0.0',
       'slogan' => 'Translation Race',
       'description' => 'A race to translate as many words as you can.',
       'src' => [
