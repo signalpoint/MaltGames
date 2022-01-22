@@ -1,10 +1,44 @@
-The start of a mini game development kit, so I'll build mini games to help me
-learn other languages. Includes one game, Word Dash.
+A tool box for learning modern coding technologies and building your own custom
+applications, for all devices.
 
-# Install and Play
+# Get Started Building an App
 
-1. Download and unzip this project to a folder
-2. Open the folder in a terminal
-3. Run `composer install`
-4. Start the game server with `php server.php`
-5. Open the `index.html` file in a browser
+```
+1. on your web server, open your public html directory
+
+cd www
+
+2. download and unzip MaltGames to a folder
+
+wget -q https://github.com/signalpoint/MaltGames/archive/refs/heads/main.zip
+unzip -q main.zip
+mv MaltGames-main my-app
+rm main.zip
+
+3. use composer to install
+
+cd my-app
+composer install
+
+3. download font awesome 5
+
+https://fontawesome.com/download
+
+4. upload font awesome to your web server
+
+scp fontawesome-free-5.15.4-web.zip me@[my-server-ip]:~/
+
+5. unzip font awesome on your web server
+
+cd vendor
+cp ~/fontawesome-free-5.15.4-web.zip
+unzip fontawesome-free-5.15.4-web.zip
+rm fontawesome-free-5.15.4-web.zip
+
+6. open your app in a browser
+
+https://example.com/my-app
+
+```
+
+Ok? Go!
