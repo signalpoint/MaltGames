@@ -1,0 +1,16 @@
+# For development environments, enable basic authentication.
+#AuthType Basic
+#AuthName "Login to access dev.maltkit.com"
+#AuthUserFile /var/www/html/dev.maltkit.com/.htpasswd
+#require valid-user
+
+# Turn on the URL Rewrite Engine
+RewriteEngine  on
+
+# Rewrite /example.php to /example (500)
+#RewriteRule ^(.*)$ $1.php
+
+# Rewrite "game/*" to "game.php?q=*"
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^/?game/(.*?)/?$ /game.php?q=$1 [L]
