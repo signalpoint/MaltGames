@@ -139,7 +139,7 @@ function loadTheGame() {
   };
 
   game.getColorSoundUrl = function() {
-    return this.getUrl() + '/malt/api.php?q=' + game.getKey() + '/sound/' + game.getLanguage() + '/' + game.getColor();
+    return this.getUrl() + '/api.php?q=' + game.getKey() + '/sound/' + game.getLanguage() + '/' + game.getColor();
   };
 
   game.getGoogleTranslateUrl = function() {
@@ -237,7 +237,7 @@ function loadTheGame() {
    */
 
   game.colorToTranslateWidget = function() {
-    return '<div id="colorToTranslate" class="m-3 mt-0"></div>';
+    return '<div id="colorToTranslate" class="mb-3"></div>';
   };
 
   game.showRandomColorToTranslate = function() {
@@ -318,7 +318,7 @@ function loadTheGame() {
       // Add the button, wrapped with a column, to the row's columns.
       cols.push(
         '<div class="col">' +
-          '<button type="button" class="btn btn-lg btn-outline-' + (color === 'white' ? 'dark' : 'light') + ' w-100 color-picker" style="background-color: ' + color + ';" data-color="' + color + '">' +
+          '<button type="button" class="btn btn-lg btn-outline-dark w-100 color-picker" style="background-color: ' + color + ';" data-color="' + color + '">' +
             '&nbsp;' +
           '</button>' +
         '</div>'
@@ -394,7 +394,9 @@ function loadTheGame() {
 
   game.scoreBoardWidget = function() {
     var html =
-      '<h3>Score Board</h3>' +
+      '<div class="clearfix">' +
+        '<h3 class="float-lg-end">Score Board</h3>' +
+      '</div>' +
       '<ul class="list-group">' +
 
         // Correct
@@ -449,16 +451,23 @@ function loadTheGame() {
 
   var language = game.getLanguage();
 
+  var languagesContainer = game.get('#gameLanguagesContainer');
+
   // If no language is set...
   if (!language) {
 
     // Did they pick a language?
-    const urlParams = new URLSearchParams(window.location.search);
-    language = urlParams.get('l');
+    language = game.getArg(2);
 
-    // If they didn't pick a language, just return so they can pick a language from index.html.
+    // If they didn't pick a language...
     if (!language) {
+
+      // Show the language selection container.
+      languagesContainer.classList.remove('d-none');
+
+      // Just return so they can pick a language from index.html.
       return;
+
     }
 
   }
@@ -467,12 +476,13 @@ function loadTheGame() {
   game.setLanguage(language);
 
   // TODO set document title
+  // "Learn Color Names in [Language]"
 
   // Show the change language button.
   game.get('#changeLanguageBtn').classList.remove('d-none');
 
   // Hide the language selection container.
-  game.get('#gameLanguagesContainer').classList.add('d-none');
+  languagesContainer.classList.add('d-none');
 
   // Get the colors from the server...
   game.apiGet('colors/' + game.getLanguage()).then((colors) => {
@@ -485,7 +495,7 @@ function loadTheGame() {
 
       '<div class="row mb-3">' +
 
-        '<div class="col-12 col-md-9">' +
+        '<div class="col-12 col-lg-9 mt-3">' +
 
           // THE RANDOM COLOR
           game.ui('colorToTranslateWidget') +
@@ -495,7 +505,7 @@ function loadTheGame() {
 
         '</div>' +
 
-        '<div class="col-12 col-md-3">' +
+        '<div class="col-12 col-lg-3 mt-0 mt-lg-3">' +
 
           // SCORE BOARD
           game.ui('scoreBoardWidget') +
