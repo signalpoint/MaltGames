@@ -1,5 +1,5 @@
 Game.prototype.api = function(method, path, data, options) {
-  path = 'api.php?q=' + this.getKey() + '/' + path;
+  path = 'api/' + this.getKey() + '/' + path;
   return this.xhr(method, path, data, options);
 };
 
