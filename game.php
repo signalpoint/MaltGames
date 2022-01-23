@@ -181,10 +181,15 @@
           <div class="d-flex justify-content-between py-4 my-4 border-top">
 
             <p>
-              <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+              <a href="/" class="mb-3 me-1 mb-md-0 text-muted text-decoration-none lh-1">
                 <i class="fas fa-toolbox"></i>
               </a>
-              <span class="text-muted">MaltKit | Modern Application Learning Technology</span>
+              <span class="text-muted">
+                <a href="<?php print $baseUrl; ?>" title="Powered by MaltKit">MaltKit</a> | Mobile App Language Toolkit
+              </span>
+              <!--Modern Application Learning Technology-->
+              <!--Mobile App Language Toolkit-->
+              <!--Modern App Language Toolkit-->
             </p>
 
             <ul class="list-unstyled d-flex">
