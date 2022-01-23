@@ -23,6 +23,9 @@ var Game = function(key) {
   g._version = null; // The semantic version of the game.
   g._webSocket = null; // The websocket connection.
 
+  // If the game has an init() handler, call it.
+  if (g.init) { g.init(); }
+
 };
 
 Game.prototype = {
