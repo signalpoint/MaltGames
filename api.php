@@ -1,103 +1,168 @@
 <?php
 
-// TODO allow formats to be returned, e.g. by default go w/ "php" so php can use
+//
+// TODO
+//
+// - allow formats to be returned, e.g. by default go w/ "php" so php can use
 // the resources to get arrays/objects/etc, then at the end if somebody needs
 // json/etc, we just set the headers, encode it, and echo it, bingo bango!
 // e.g. game->apiGet('directory', ['format' => 'json']);
+//
+// - figure out a psr4+autoload strategy!
+//
+// - put a basic access layer on this by making sure server request URL's
+// game key matches the game key provided to the api.
+//
 
-$q = filter_input(INPUT_GET, 'q', FILTER_SANITIZE_URL);
+require "src/common.inc";
+require "src/games.inc";
 
-//$method = strtolower($_SERVER['REQUEST_METHOD']);
-$method = strtolower(
-  filter_input(INPUT_SERVER, 'REQUEST_METHOD')
-);
+// Set up a function to send appropriate response to the client.
+$responseForClient = function($response, $header) {
+  echo $header['Content-Type'] == 'application/json' ?
+    json_encode($response) :
+    $response;
+};
 
-$args = explode('/', $q);
+// Set up a function to build a header string from an array.
+$buildHeaderString = function($header) {
+  $items = [];
+  foreach ($header as $key => $value) {
+    $items[] = "{$key}: $value";
+  }
+  return implode('; ', $items);
+};
 
-// TODO make sure there are enough args, throw error if not
+// Set up helper variables.
+$method = mkMethod();
+$args = mkArgs();
+$argCount = count($args);
 
+// Let's check to make sure they provided a game key and resource name...
+
+// NO GAME KEY PROVIDED
+if ($argCount < 1) {
+  http_response_code(500);
+  $responseForClient([
+    'error' => [
+      'code' => 500,
+      'msg' => 'No Game Key Provided',
+    ],
+  ]);
+  return;
+}
+
+// NO RESOURCE NAME PROVIDED
+if ($argCount < 2) {
+  http_response_code(500);
+  $responseForClient([
+    'error' => [
+      'code' => 500,
+      'msg' => 'No Resource Name Provided',
+    ],
+  ]);
+  return;
+}
+
+// Gather the game key and load the game.
 $gameKey = array_shift($args);
+$game = mkGameLoad($gameKey);
+
+// Make sure the game exists.
+if (!$game) {
+
+  // GAME NOT FOUND
+  http_response_code(404);
+  $responseForClient([
+    'error' => [
+      'code' => 404,
+      'msg' => 'Game Not Found',
+    ],
+  ]);
+  return;
+
+}
+
+// We've got the game...
+
+// Get the resource name from the URL path arguments.
 $resource = array_shift($args);
 
-// TODO gotta figure out how to register a game's api with the gdk
-// TODO figure out a psr4+autoload strategy!
-$api = [
+// Load the game's API, if any.
+$api = mkGameLoadApi($gameKey);
 
-  'color-picker' => [
-    'colors' => [
-      'get' => [],
+// Make sure the game's API exists.
+if (!$api) {
+  http_response_code(500);
+  $responseForClient([
+    'error' => [
+      'code' => 500,
+      'msg' => 'No Game API',
     ],
-    'sound' => [
-      'get' => [],
-      'post' => [],
-    ],
-  ],
+  ]);
+  return;
+}
 
+// Set up header defaults.
+$header = [
+  'Content-Type' => 'application/json',
+  'charset' => 'utf-8',
 ];
 
-//header('Content-Type: application/json; charset=utf-8');
-
-// TODO gotta figure out Content-type abstraction for the client
-$useAudioMpeg = $resource == 'sound' && ($method == 'get' || $method == 'post');
-$useJson = !$useAudioMpeg;
-
-if ($useAudioMpeg) {
-  header('Content-Type: audio/mpeg;');
-}
-else {
-  header('Content-Type: application/json; charset=utf-8');
+// Merge any headers from the game's API.
+if (isset($api[$resource][$method]['header'])) {
+  $header = array_merge($header, $api[$resource][$method]['header']);
 }
 
-if (isset($api[$gameKey])) {
+// Set the header.
+header($buildHeaderString($header));
 
-  if (isset($api[$gameKey][$resource])) {
+// If the game's API has a matching resource...
+if (isset($api[$resource])) {
 
-    if (isset($api[$gameKey][$resource][$method])) {
+  // If the game's API implements the method for this resource...
+  if (isset($api[$resource][$method])) {
 
-      $path = "games/{$gameKey}/api/{$resource}/{$method}.inc";
-      require $path;
+    // Load the game's API .inc file.
+    $path = "games/{$gameKey}/api/{$resource}/{$method}.inc";
+    require $path;
 
-      $safeGameKey = strpos($gameKey, "-") !== FALSE ?
-        str_replace("-", "_", $gameKey) : $gameKey;
+    // Convert dashes to underscores to make a safe game key and resource name.
+    $safeGameKey = strpos($gameKey, "-") !== FALSE ?
+      str_replace("-", "_", $gameKey) : $gameKey;
+    $safeResource = strpos($resource, "-") !== FALSE ?
+      str_replace("-", "_", $resource) : $resource;
 
-      $safeResource = strpos($resource, "-") !== FALSE ?
-        str_replace("-", "_", $resource) : $resource;
+    // Determine function name to call for the resource.
+    $function = "{$safeGameKey}_api_{$safeResource}_{$method}";
 
-      $function = "{$safeGameKey}_api_{$safeResource}_{$method}";
-      switch ($method) {
-        case 'post':
-          $response = call_user_func($function, json_decode(file_get_contents('php://input')));
-          break;
-        case 'get':
-        default:
-          $response = call_user_func_array($function, $args);
-          break;
-      }
+    // Depending on the method, get the response from the resource...
+    switch ($method) {
 
+      // POST
+      case 'post':
+        $response = call_user_func($function, json_decode(file_get_contents('php://input')));
+        break;
 
-    }
-    else {
-
-      // UNSUPPORTED METHOD
-      http_response_code(405);
-      $response = [
-        'error' => [
-          'code' => 405,
-          'msg' => 'Method Not Allowed',
-        ],
-      ];
+      // GET
+      // *
+      case 'get':
+      default:
+        $response = call_user_func_array($function, $args);
+        break;
 
     }
+
 
   }
   else {
 
-    // MISSING RESOURCE
-    http_response_code(404);
+    // UNSUPPORTED METHOD
+    http_response_code(405);
     $response = [
       'error' => [
-        'code' => 404,
-        'msg' => 'Resource Not Found',
+        'code' => 405,
+        'msg' => 'Method Not Allowed',
       ],
     ];
 
@@ -106,16 +171,15 @@ if (isset($api[$gameKey])) {
 }
 else {
 
-  // MISSING GAME
+  // MISSING RESOURCE
   http_response_code(404);
   $response = [
     'error' => [
       'code' => 404,
-      'msg' => 'Game Not Found',
+      'msg' => 'Resource Not Found',
     ],
   ];
 
 }
 
-echo $useJson ? json_encode($response) : $response;
-//echo json_encode($response);
+echo $responseForClient($response, $header);
