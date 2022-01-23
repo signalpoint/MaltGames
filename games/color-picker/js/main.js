@@ -15,36 +15,30 @@ function loadTheGame() {
   game = new Game('color-picker');
   game.setVersion('0.0.0');
 
-  /**
-   * PART I
-   */
-
-  /**
-   * START THE GAME...
-   */
-
+  // Get the game language, if any.
   var language = game.getLanguage();
 
+  // Grab the language selection widget.
   var languagesContainer = game.get('#gameLanguagesContainer');
 
-  // If no language is set...
+  // If the game language is NOT set...
   if (!language) {
 
-    // Did they pick a language?
+    // Have they now picked a language? (the language code in the URL path)
     language = game.getArg(2);
 
     // If they didn't pick a language...
     if (!language) {
 
-      // Show the language selection container.
+      // Show the language selection container and return.
       languagesContainer.classList.remove('d-none');
-
-      // Just return so they can pick a language from index.html.
       return;
 
     }
 
   }
+
+  // The game language is ready...
 
   // Set the language.
   game.setLanguage(language);
