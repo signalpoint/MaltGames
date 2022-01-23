@@ -29,6 +29,18 @@ function mkGames() {
           'widgets/score-board.js',
         ],
       ],
+      'api' => [
+        'colors' => [
+          'get' => [],
+        ],
+        'sound' => [
+          'get' => [
+            'header' => [
+              'Content-Type' => 'audio/mpeg'
+            ],
+          ],
+        ],
+      ],
     ],
 
     'word-dash' => [
@@ -65,4 +77,9 @@ function mkGames() {
 function mkGameLoad($key) {
   $games = mkGames();
   return isset($games[$key]) ? $games[$key] : NULL;
+}
+
+function mkGameLoadApi($key) {
+  $game = mkGameLoad($key);
+  return isset($game['api']) ? $game['api'] : NULL;
 }
