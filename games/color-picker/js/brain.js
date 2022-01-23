@@ -216,7 +216,7 @@ Game.prototype.init = function() {
   };
 
   game.getColorSoundUrl = function() {
-    return this.getUrl() + '/api.php?q=' + game.getKey() + '/sound/' + game.getLanguage() + '/' + game.getColor();
+    return this.getUrl() + '/api/' + game.getKey() + '/sound/' + game.getLanguage() + '/' + game.getColor();
   };
 
   game.getGoogleTranslateUrl = function() {
