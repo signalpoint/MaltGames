@@ -50,9 +50,14 @@ function loadTheGame() {
 }
 
 /**
- * GAME PROTOTYPE EXTENSIONS
+ * GAME INITIALIZATION
  */
+Game.prototype.init = function() {
 
-Game.prototype.getContainer = function() {
-  return game.get('#myGameContainer');
+  game = this;
+
+  game.getContainer = function() {
+    return this.get('#myGameContainer');
+  };
+
 };
