@@ -83,7 +83,7 @@ Game.prototype.init = function() {
     this.setScoreCorrect(0);
     this.setScoreIncorrect(0);
     this.setScoreListens(0);
-    this.tickScoreQuestions(0);
+    this.setScoreQuestions(0);
   };
 
   /**
