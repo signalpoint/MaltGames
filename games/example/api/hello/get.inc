@@ -1,9 +1,9 @@
 <?php
 
-function example_api_foo_get() {
+function example_api_hello_get() {
 
   return [
-    'abc' => 123,
+    'hello' => 'world',
   ];
 
 }
