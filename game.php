@@ -61,40 +61,32 @@
   <body onload="loadTheGame()">
 
     <!-- HEADER -->
-    <div class="bg-dark">
+    <?php require "src/html/header.inc"; ?>
 
       <div class="container">
 
-        <nav class="navbar navbar-dark bg-dark">
-
-          <!-- HOME -->
-          <button class="btn btn-outline-secondary ms-0 ms-lg-3" type="button">
-            <a href="<?php print $baseUrl; ?>" class="link-light" title="Back to Home">
-              <i class="fas fa-home"></i><span class="d-none d-lg-inline ms-2">Home</span>
-            </a>
-          </button>
-
-          <!-- BREADCRUMB -->
-          <ol class="breadcrumb mt-3">
-            <li class="breadcrumb-item active"><?php print $game['name']; ?></li>
+        <!-- BREADCRUMB -->
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="<?php print $baseUrl; ?>">Home</a></li>
+            <li class="breadcrumb-item"><a href="<?php print $baseUrl; ?>/games">Games</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><?php print $game['name']; ?></li>
           </ol>
-
-          <!-- SETTINGS -->
-          <button id="changeLanguageBtn" class="btn btn-outline-secondary me-0 me-lg-3 d-none" type="button">
-            <a href="<?php print $game['url']; ?>" class="link-light" title="Change Language">
-              <i class="fas fa-cog"></i><span class="d-none d-lg-inline ms-2">Language</span>
-            </a>
-          </button>
-
         </nav>
 
-      </div>
+        <!-- SETTINGS -->
+<!--        <button id="changeLanguageBtn" class="btn btn-outline-secondary me-0 me-lg-3 d-none" type="button">
+          <a href="<?php print $game['url']; ?>" class="link-light" title="Change Language">
+            <i class="fas fa-cog"></i><span class="d-none d-lg-inline ms-2">Language</span>
+          </a>
+        </button>-->
 
     </div>
 
+
     <!-- LANGUAGE SELECTION -->
     <!-- TODO make this a widget in color-picker -->
-    <div class="container d-none" id="gameLanguagesContainer">
+    <div class="container d-none mb-3" id="gameLanguagesContainer">
 
       <div class="row">
 
@@ -122,93 +114,10 @@
     </div>
 
     <!-- GAME CONTAINER -->
-    <div class="container d-none" id="gameContainer"></div>
+    <div class="container d-none mb-3" id="gameContainer"></div>
 
     <!-- FOOTER -->
-<!--    <div class="bg-dark">-->
-
-      <div class="container">
-
-        <footer class="py-5">
-
-          <div class="row">
-
-            <div class="col-12 col-lg-3">
-
-              <!-- TODO have it open in a modal, w/ quick tabs to move between files! so sweet! -->
-              <!-- TODO better indentation when a folder is "opened" -->
-              <h5 class="mb-3" title="Browse the source code for <?php print $game['name']; ?>">Source Code</h5>
-              <h6>
-                <a href="https://github.com/signalpoint/MaltGames/blob/main/games/<?php print $key; ?>" class="text-muted" target="_blank">
-                  <i class="fas fa-folder me-2"></i><?php print $key; ?>
-                </a>
-              </h6>
-              <ul class="nav flex-column">
-                <?php foreach($game['src']['js'] as $jsFile) { ?>
-                <li class="nav-item mb-2 ms-2">
-                  <a href="https://github.com/signalpoint/MaltGames/blob/main/games/<?php print $key; ?>/js/<?php print $jsFile; ?>" class="nav-link p-0 text-muted" target="_blank">
-                    <i class="fab fa-js-square me-2 text-sm"></i><?php print $jsFile; ?>
-                  </a>
-                </li>
-                <?php } ?>
-              </ul>
-
-            </div>
-
-            <div class="col-12 col-lg-3">
-              <h5>Docs</h5>
-              <ul class="nav flex-column">
-                <!--<li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>-->
-              </ul>
-            </div>
-
-            <div class="col-12 col-lg-3">
-              <h5>API</h5>
-              <ul class="nav flex-column">
-                <!--<li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>-->
-              </ul>
-            </div>
-
-            <div class="col-12 col-lg-3">
-              <h5>About</h5>
-              <ul class="nav flex-column">
-                <!--<li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>-->
-              </ul>
-            </div>
-
-          </div>
-
-          <div class="d-flex justify-content-between py-4 my-4 border-top">
-
-            <p>
-              <a href="/" class="mb-3 me-1 mb-md-0 text-muted text-decoration-none lh-1">
-                <i class="fas fa-toolbox"></i>
-              </a>
-              <span class="text-muted">
-                <a href="<?php print $baseUrl; ?>" title="Powered by MaltKit">MaltKit</a> | Mobile App Language Toolkit
-              </span>
-              <!--Modern Application Learning Technology-->
-              <!--Mobile App Language Toolkit-->
-              <!--Modern App Language Toolkit-->
-            </p>
-
-            <ul class="list-unstyled d-flex">
-              <li class="ms-3"><a class="link-dark" href="https://www.facebook.com/MaltKit"><i class="fab fa-facebook"></i></a></li>
-              <li class="ms-3"><a class="link-dark" href="https://twitter.com/TheMaltKit"><i class="fab fa-twitter"></i></a></li>
-              <li class="ms-3"><a class="link-dark" href="https://www.youtube.com/channel/UCER1oQBRQSZsuS1qtWQwsbQ"><i class="fab fa-youtube"></i></a></li>
-              <li class="ms-3"><a class="link-dark" href="https://www.reddit.com/r/MaltKit/"><i class="fab fa-reddit"></i></a></li>
-              <li class="ms-3"><a class="link-dark" href="https://www.instagram.com/themaltkit/"><i class="fab fa-instagram"></i></a></li>
-              <li class="ms-3"><a class="link-dark" href="https://www.pinterest.com/themaltkit"><i class="fab fa-pinterest"></i></a></li>
-              <li class="ms-3"><a class="link-dark" href="https://github.com/signalpoint/MaltGames"><i class="fab fa-github"></i></a></li>
-            </ul>
-
-          </div>
-
-        </footer>
-
-      </div>
-
-<!--    </div>-->
+    <?php require "src/html/footer.inc"; ?>
 
     <!-- TOAST -->
     <div class="toast-container position-absolute p-3 bottom-0 start-50 translate-middle-x" id="toastPlacement" data-original-class="toast-container position-absolute p-3">
