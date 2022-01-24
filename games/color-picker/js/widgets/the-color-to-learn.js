@@ -1,7 +1,4 @@
-// TODO "game" isn't ready yet with this approach, doh!
-//   figure it out!
-
-Game.prototype.colorToTranslateWidget = function() {
+Game.prototype.theColorToLearnWidget = function() {
   return '<div id="colorToTranslate" class="mb-3"></div>';
 };
 

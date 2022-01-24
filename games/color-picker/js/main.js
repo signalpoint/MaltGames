@@ -65,8 +65,8 @@ function loadTheGame() {
 
         '<div class="col-12 col-lg-9 mt-3">' +
 
-          // THE RANDOM COLOR
-          game.ui('colorToTranslateWidget') +
+          // THE COLOR TO LEARN
+          game.ui('theColorToLearnWidget') +
 
           // COLORED BUTTONS
           game.ui('coloredButtonsWidget') +
