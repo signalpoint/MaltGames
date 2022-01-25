@@ -22,6 +22,7 @@ var Game = function(key) {
   g._modal = null;
   g._version = null; // The semantic version of the game.
   g._webSocket = null; // The websocket connection.
+  g._language = null; // The current language.
 
   // If the game has an init() handler, call it.
   if (g.init) { g.init(); }
@@ -71,8 +72,18 @@ Game.prototype = {
   },
   setPath: function(path) { this._path = path; },
 
+  // ARGS
   getArgs: function() { return this.getPath().split('/'); },
   getArg: function(position) { return this.getArgs()[position]; },
+
+  // CONTAINER
+  getContainer: function() {
+    return game.get('#gameContainer');
+  },
+  setContainerContent: function(html, ok) {
+    this.getContainer().innerHTML = html;
+    if (ok) { setTimeout(ok, 1); }
+  },
 
   // AUDIO
   getAudioLibrary: function() { return this._audioLibrary; },
@@ -204,6 +215,14 @@ Game.prototype = {
 
   // @deprecated
   _requests: { },
+
+  // LANGUAGE
+  setLanguage: function(code) {
+    this._language = code;
+  },
+  getLanguage: function() {
+    return this._language;
+  },
 
   ui: function(widget) {
     return this[widget].call(this, arguments.shift);
