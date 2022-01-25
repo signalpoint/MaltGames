@@ -1,7 +1,9 @@
 {
-    "name": "signalpoint/games",
+    "name": "signalpoint/MaltGames",
     "autoload": {
-        "psr-4": {"MaltGames\\": "src/"}
+        "psr-4": {
+          "MaltGames\\": "src/"
+        }
     },
     "require": {
         "twbs/bootstrap": "5.1.3",
