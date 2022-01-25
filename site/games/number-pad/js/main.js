@@ -47,7 +47,7 @@ function loadTheGame() {
   // "Learn Numbers in [Language]"
 
   // Show the change language button.
-  game.get('#changeLanguageBtn').classList.remove('d-none');
+//  game.get('#changeLanguageBtn').classList.remove('d-none');
 
   // Hide the language selection container.
   languagesContainer.classList.add('d-none');

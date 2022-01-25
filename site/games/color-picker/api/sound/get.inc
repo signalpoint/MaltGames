@@ -8,7 +8,7 @@
  */
 function color_picker_api_sound_get($languageCode, $word) {
 
-  require "games/color-picker/api/colors/get.inc";
+  require "site/games/color-picker/api/colors/get.inc";
 
   $colors = color_picker_api_colors_get($languageCode);
 

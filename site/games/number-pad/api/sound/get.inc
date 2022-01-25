@@ -8,7 +8,7 @@
  */
 function number_pad_api_sound_get($languageCode, $number) {
 
-  require "games/number-pad/api/numbers/get.inc";
+  require "site/games/number-pad/api/numbers/get.inc";
 
   $numbers = number_pad_api_numbers_get($languageCode);
 
