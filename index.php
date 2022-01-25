@@ -8,7 +8,6 @@
   require 'vendor/autoload.php';
 
   require "src/common.inc";
-  require "src/pages.inc";
   require "src/games.inc"; // TODO might not be needed here anymore
 
   $baseUrl = mkBaseUrl();
