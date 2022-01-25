@@ -7,15 +7,14 @@
 # Turn on the URL Rewrite Engine
 RewriteEngine  on
 
-# Rewrite /example.php to /example (500)
-#RewriteRule ^(.*)$ $1.php
-
-# Rewrite "game/*" to "game.php?q=*"
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^/?game/(.*?)/?$ /game.php?q=$1 [L]
-
 # Rewrite "api/*" to "api.php?q=*"
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^/?api/(.*?)/?$ /api.php?q=$1 [L]
+
+# Pass all requests not referring directly to files in the filesystem to
+# index.php. @see Drupal 7 .htaccess
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !=/favicon.ico
+RewriteRule ^ index.php [L]
