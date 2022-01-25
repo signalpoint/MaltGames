@@ -2,7 +2,6 @@ Game.prototype.init = function() {
 
   var game = this;
 
-  game._language = null;
   game._colors = null;
   game._color = null;
   game._randomColors = null;
@@ -11,14 +10,6 @@ Game.prototype.init = function() {
   game._scoreIncorrect = 0;
   game._scoreListens = 0;
   game._scoreQuestions = 0;
-
-  // LANGUAGE
-  game.setLanguage = function(code) {
-    this._language = code;
-  };
-  game.getLanguage = function() {
-    return this._language;
-  };
 
   // COLORS
   game.getColors = function() {
@@ -187,15 +178,6 @@ Game.prototype.init = function() {
   /**
    * HELPERS
    */
-
-  game.getContainer = function() {
-    return game.get('#gameContainer');
-  };
-
-  game.setContainerContent = function(html, ok) {
-    this.getContainer().innerHTML = html;
-    if (ok) { setTimeout(ok, 1); }
-  };
 
   game.removeColor = function(list, color) {
     delete list[color];
