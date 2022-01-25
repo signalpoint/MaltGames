@@ -35,8 +35,14 @@ $buildHeaderString = function($header) {
 
 // Set up helper variables.
 $method = mkMethod();
-$args = mkArgs();
+$args = explode('/', mkQ());
 $argCount = count($args);
+
+// Set up header defaults.
+$header = [
+  'Content-Type' => 'application/json',
+  'charset' => 'utf-8',
+];
 
 // Let's check to make sure they provided a game key and resource name...
 
@@ -48,7 +54,7 @@ if ($argCount < 1) {
       'code' => 500,
       'msg' => 'No Game Key Provided',
     ],
-  ]);
+  ], $header);
   return;
 }
 
@@ -60,7 +66,7 @@ if ($argCount < 2) {
       'code' => 500,
       'msg' => 'No Resource Name Provided',
     ],
-  ]);
+  ], $header);
   return;
 }
 
@@ -78,7 +84,7 @@ if (!$game) {
       'code' => 404,
       'msg' => 'Game Not Found',
     ],
-  ]);
+  ], $header);
   return;
 
 }
@@ -99,15 +105,9 @@ if (!$api) {
       'code' => 500,
       'msg' => 'No Game API',
     ],
-  ]);
+  ], $header);
   return;
 }
-
-// Set up header defaults.
-$header = [
-  'Content-Type' => 'application/json',
-  'charset' => 'utf-8',
-];
 
 // Merge any headers from the game's API.
 if (isset($api[$resource][$method]['header'])) {
@@ -124,7 +124,7 @@ if (isset($api[$resource])) {
   if (isset($api[$resource][$method])) {
 
     // Load the game's API .inc file.
-    $path = "games/{$gameKey}/api/{$resource}/{$method}.inc";
+    $path = "site/games/{$gameKey}/api/{$resource}/{$method}.inc";
     require $path;
 
     // Convert dashes to underscores to make a safe game key and resource name.
