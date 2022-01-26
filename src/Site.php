@@ -2,10 +2,12 @@
 
 namespace MaltGames;
 
+use MaltGames\Mod;
 use MaltGames\Page;
 
 class Site {
 
+    protected $mods;
     protected $pages;
     protected $pageTemplates;
     protected $protocol;
@@ -14,6 +16,7 @@ class Site {
 
     public function __construct() {
 
+      $this->mods = [];
       $this->pages = [];
       $this->pageTemplates = [];
       $this->protocol = mkProtocol();
@@ -22,12 +25,24 @@ class Site {
 
     }
 
+    public function getMods() { return $this->mods; }
+    public function addMods($mods) {
+      foreach ($mods as $id => $mod) {
+        $this->addMod($id, $mod);
+      }
+    }
+    public function addMod($id, $mod) {
+      $this->mods[$id] = new Mod($id, $mod);
+    }
+    public function loadMod($id) {
+      return isset($this->mods[$id]) ? $this->mods[$id] : NULL;
+    }
+
     public function addPages($pages) {
       foreach ($pages as $id => $page) {
         $this->addPage($id, $page);
       }
     }
-
     public function addPage($id, $page) {
       $this->pages[$id] = new Page($id, $page);
     }
