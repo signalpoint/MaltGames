@@ -1,5 +1,3 @@
-// GLOBALS
-
 var game = null; // The Game object.
 
 function loadTheGame() {
@@ -8,56 +6,23 @@ function loadTheGame() {
   game = new Game('example');
   game.setVersion('0.0.0');
 
-  // Connect to the web socket server and handle connection events...
-  game.connect({
+  // Get stuff from the server...
+  game.apiGet('hello').then((stuff) => {
 
-    // CONNECTION OPENED
-    open: function(e) {
+    var html =
+      '<h1>Stuff</h1>' +
+      '<textarea>' + JSON.stringify(stuff) + '</textarea>';
 
-      game.toast('Connection opened!');
+    // Set the game play container's html, show the container, and then start the game.
+    game.setContainerContent(html, function() {
+      game.showContainer();
+//      game.start();
+    });
 
-    },
+  }).catch((error) => {
 
-    // MESSAGE RECEIVED
-    message: function(e) {
-
-      var data = JSON.parse(e.data);
-      console.log(data);
-
-      var op = data.op;
-      switch (op) {
-
-        default:
-          console.log('onmessage, unknown op: ' + op);
-          break;
-
-      }
-
-    },
-
-    // CONNECTION CLOSED
-    close: function(e) {
-      toastMessage('Connection closed!', 'danger');
-    },
-
-    // ERROR
-    error: function(e) {
-      toastMessage('Connection failed!', 'danger');
-    }
+    game.toast(error, 'danger');
 
   });
 
 }
-
-/**
- * GAME INITIALIZATION
- */
-Game.prototype.init = function() {
-
-  game = this;
-
-  game.getContainer = function() {
-    return this.get('#myGameContainer');
-  };
-
-};
