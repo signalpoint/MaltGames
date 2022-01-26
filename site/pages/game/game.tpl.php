@@ -2,17 +2,24 @@
 
   $baseUrl = mkBaseUrl();
   $game = $page->getData();
+  $language = mkArg(2);
 
 ?>
 
-<div class="container">
+<div class="container mb-3">
 
   <!-- BREADCRUMB -->
   <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item"><a href="<?php print $baseUrl; ?>">Home</a></li>
       <li class="breadcrumb-item"><a href="<?php print $baseUrl; ?>/games">Games</a></li>
-      <li class="breadcrumb-item active" aria-current="page"><?php print $game['name']; ?></li>
+      <?php if (!$language) { ?>
+        <li class="breadcrumb-item active" aria-current="page"><?php print $game['name']; ?></li>
+      <?php } else { ?>
+        <li class="breadcrumb-item"><a href="<?php print $game['url']; ?>"><?php print $game['name']; ?></a></li>
+        <li class="breadcrumb-item active" aria-current="page"><?php print $language; ?></li>
+      <?php } ?>
+
     </ol>
   </nav>
 
@@ -26,7 +33,7 @@
 </div>
 
 <!-- LANGUAGE SELECTION -->
-<!-- TODO make this a widget in color-picker -->
+<!-- TODO make this a widget -->
 <div class="container d-none mb-3" id="gameLanguagesContainer">
 
 <div class="row">
@@ -54,8 +61,8 @@
 
 </div>
 
-<!-- GAME CONTAINER -->
-<div class="container d-none mb-3" id="gameContainer"></div>
+<!-- GAME -->
+<?php require "site/games/{$game['key']}/{$game['key']}.php"; ?>
 
 <!-- TOAST -->
 <div class="toast-container position-absolute p-3 bottom-0 start-50 translate-middle-x" id="toastPlacement" data-original-class="toast-container position-absolute p-3">
