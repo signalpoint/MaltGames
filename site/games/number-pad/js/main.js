@@ -83,7 +83,7 @@ function loadTheGame() {
 
     // Set the game play container's html, show the container, and then start the game.
     game.setContainerContent(html, function() {
-      game.getContainer().classList.remove('d-none');
+      game.showContainer();
       game.start();
     });
 
