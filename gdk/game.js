@@ -78,11 +78,17 @@ Game.prototype = {
 
   // CONTAINER
   getContainer: function() {
-    return game.get('#gameContainer');
+    return this.get('#gameContainer');
   },
   setContainerContent: function(html, ok) {
     this.getContainer().innerHTML = html;
     if (ok) { setTimeout(ok, 1); }
+  },
+  showContainer: function() {
+    this.getContainer().classList.remove('d-none');
+  },
+  hideContainer: function() {
+    this.getContainer().classList.add('d-none');
   },
 
   // AUDIO
@@ -226,6 +232,15 @@ Game.prototype = {
 
   ui: function(widget) {
     return this[widget].call(this, arguments.shift);
+  },
+
+  display: function(selectorOrElement, html, ok, err) {
+    var el = typeof selectorOrElement === 'string' ? this.get(selectorOrElement) : selectorOrElement;
+    if (el) {
+      el.innerHTML = html;
+      if (ok) { setTimeout(ok, 1); }
+    }
+    else if (err) { setTimeout(err, 1); }
   }
 
 };
