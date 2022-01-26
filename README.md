@@ -42,3 +42,5 @@ https://example.com/my-app
 ```
 
 Ok? Go!
+
+Next try, building a `Game` using the `README.md` file in the `site/games` folder.
