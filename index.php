@@ -60,10 +60,32 @@
     ],
   ]);
 
-  // Add pages to site.
+  // Add mods to site...
+  $site->AddMods([
+    'mk' => [
+
+      'name' => 'MaltKit',
+      'description' => 'The MaltKit module for maltkit.com.',
+      'files' => [
+        'site/mods/mk/mk.php',
+      ],
+
+    ],
+  ]);
+
+  // Load mod files onto site...
+  $mods = $site->getMods();
+  foreach ($mods as $id => $mod) {
+    $files = $mod->getFiles();
+    foreach ($files as $file) {
+      require $file;
+    }
+  }
+
+  // Add pages to site...
   $site->addPages([
 
-    // HOME PAGE
+    // HOME
     'home' => [
 
       'head' => [
@@ -85,7 +107,7 @@
 
     ],
 
-    // BUILD PAGE
+    // BUILD
     'build' => [
 
       'head' => [
@@ -107,7 +129,7 @@
 
     ],
 
-    // GAMES PAGE
+    // GAMES
     'games' => [
 
       'head' => [
@@ -129,12 +151,7 @@
 
     ],
 
-    // TODO need a way to pre and/or post process a page, that way a page can
-    // easily be tinkered with programmatically before its rendered. For
-    // example, being able to set the <title></title> on a per game basic will
-    // be critical.
-
-    // GAME PAGE
+    // GAME
     'game' => [
 
       'head' => [
@@ -180,6 +197,60 @@
         'load' => 'gamePageControllerLoad',
         'preProcess' => 'gamePageControllerPreProcess',
 
+      ],
+
+    ],
+
+    // CONTACT
+    'contact' => [
+
+      'head' => [
+        'title' => 'MaltKit | Contact',
+        'metas' => [
+          [
+            'name' => 'description',
+            'content' => 'The contact information for MaltKit.',
+          ]
+        ],
+      ],
+      'body' => [
+        'file' => 'site/pages/contact.php',
+      ],
+
+    ],
+
+    // PRIVACY
+    'privacy' => [
+
+      'head' => [
+        'title' => 'MaltKit | Privacy Policy',
+        'metas' => [
+          [
+            'name' => 'description',
+            'content' => 'The privacy policy for MaltKit.',
+          ]
+        ],
+      ],
+      'body' => [
+        'file' => 'site/pages/privacy.html',
+      ],
+
+    ],
+
+    // TERMS
+    'terms' => [
+
+      'head' => [
+        'title' => 'MaltKit | Terms & Conditions',
+        'metas' => [
+          [
+            'name' => 'description',
+            'content' => 'The terms and conditions for MaltKit.',
+          ]
+        ],
+      ],
+      'body' => [
+        'file' => 'site/pages/terms.html',
       ],
 
     ],
