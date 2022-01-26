@@ -73,6 +73,34 @@ function mkGames() {
       ],
     ],
 
+    'object-hunt' => [
+      'name' => 'ObjectHunt',
+      'v' => '0.0.0',
+      'slogan' => 'Learn Objects in Another Language',
+      'description' => 'Hunt for objects and their matching translation.',
+      'page' => [
+        'head' => [
+          'scripts' => [
+            'main.js',
+            'brain.js',
+            'classes/card.js',
+          ],
+        ],
+      ],
+      'api' => [
+        'objects' => [
+          'get' => [],
+        ],
+        'sound' => [
+          'get' => [
+            'header' => [
+              'Content-Type' => 'audio/mpeg'
+            ],
+          ],
+        ],
+      ],
+    ],
+
     'word-dash' => [
       'name' => 'WordDash',
       'v' => '0.0.0',
