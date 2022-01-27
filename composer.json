@@ -3,7 +3,10 @@
     "autoload": {
         "psr-4": {
           "MaltGames\\": "src/",
-          "MaltKit\\": "site/mods/Mk/src/"
+          "MaltKit\\": [
+            "site/mods/Mk/src/",
+            "site/mods/MkDocs/src/"
+          ]
         }
     },
     "require": {
