@@ -37,7 +37,7 @@ function mkSocialNetworks() {
     'github' => [
       'title' => 'GitHub',
       'url' => 'https://github.com/signalpoint/MaltGames',
-      'handle' => 'MaltGames',
+      'handle' => 'signalpoint/MaltGames',
     ],
 
   ];
