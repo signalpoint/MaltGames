@@ -2,7 +2,8 @@
     "name": "signalpoint/MaltGames",
     "autoload": {
         "psr-4": {
-          "MaltGames\\": "src/"
+          "MaltGames\\": "src/",
+          "MaltKit\\": "site/mods/Mk/src/"
         }
     },
     "require": {
