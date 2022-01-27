@@ -2,18 +2,34 @@
 
   $buttons = [
 
-    // BUILD
-    'build' => [
-      'path' => 'build',
-      'text' => 'Build',
-      'icon' => 'tools',
+    // DOCS
+    'docs' => [
+      'path' => 'docs',
+      'text' => 'Docs',
+      'icon' => 'book',
+      'attributes' => [
+        'title' => 'View the MaltKit Documentation',
+      ],
     ],
+
+    // BUILD
+//    'build' => [
+//      'path' => 'build',
+//      'text' => 'Build',
+//      'icon' => 'tools',
+//      'attributes' => [
+//        'title' => 'Build with MaltKit',
+//      ],
+//    ],
 
     // GAMES
     'games' => [
       'path' => 'games',
       'text' => 'Games',
       'icon' => 'gamepad',
+      'attributes' => [
+        'title' => 'Play Games Built with MaltKit',
+      ],
     ],
 
     // APPS
@@ -29,6 +45,13 @@
       'text' => 'Sites',
       'icon' => NULL,
     ],
+
+    // MUSIC
+//    'music' => [
+//      'path' => 'music',
+//      'text' => 'Music',
+//      'icon' => 'music',
+//    ],
 
   ];
 
@@ -56,9 +79,23 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
           <?php foreach ($buttons as $key => $button) { ?>
+          <?php
+            $defaultBtnAttrs = [
+              'class' => ['nav-link'],
+              'href' => $baseUrl . '/' . $button['path'],
+            ];
+            if (explode('/', $button['path'])[0] === mkArg(0)) {
+              $defaultBtnAttrs['class'][] = 'active';
+            }
+            $button['attributes'] = isset($button['attributes']) ?
+              array_merge($defaultBtnAttrs, $button['attributes']) : $defaultBtnAttrs;
+          ?>
             <li class="nav-item">
-              <a class="nav-link <?php if ($button['path'] == mkArg(0)) { print 'active'; } ?>" href="<?php print $baseUrl . '/' . $button['path']; ?>">
-                <i class="fas fa-<?php print $button['icon']; ?> me-2"></i><?php print $button['text']; ?>
+              <a <?php print mkAttributes($button['attributes']); ?>>
+                <?php if (isset($button['icon']) && $button['icon']) { ?>
+                  <i class="fas fa-<?php print $button['icon']; ?> me-2"></i>
+                <?php }?>
+                <?php print $button['text']; ?>
               </a>
             </li>
           <?php } ?>
