@@ -47,6 +47,10 @@ function mkArg($position) {
   return isset($args[$position]) ? $args[$position] : NULL;
 }
 
+function mkPath() {
+  return implode('/', mkArgs());
+}
+
 function mkProtocol() {
   return $_SERVER['REQUEST_SCHEME'];
 }
