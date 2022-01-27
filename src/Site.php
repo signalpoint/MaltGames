@@ -7,9 +7,6 @@ use MaltGames\Theme;
 use MaltGames\Route;
 use MaltGames\Page;
 
-// TODO gotta figure out how to dynamically "use" this!
-use MaltKit\Mk;
-
 class Site {
 
     protected $mods;
@@ -45,8 +42,8 @@ class Site {
       }
     }
     public function addMod($id, $mod) {
-//      $this->mods[$id] = new $mod['class']($id, $mod);
-      $this->mods[$id] = new Mk($id, $mod);
+      $modClass = "{$mod['namespace']}\\{$mod['class']}";
+      $this->mods[$id] = new $modClass($id, $mod);
     }
     public function getMod($id) {
       return isset($this->mods[$id]) ? $this->mods[$id] : NULL;
