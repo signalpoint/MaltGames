@@ -1,7 +1,8 @@
-<div class="container"><footer>
+<div class="container border-top pt-3 mt-md-5"><footer>
 
   <div class="row">
 
+    <!-- GET STARTED -->
     <div class="col-12 col-lg-3">
 
       <?php
@@ -9,7 +10,7 @@
       // If we're looking at a game, show the source code widget. Otherwise...
       if (mkArg(1) === 'game') {
 
-        require "game-source-code.inc";
+//        require "game-source-code.inc";
 
       }
       else { ?>
@@ -26,19 +27,20 @@
     </div>
 
     <div class="col-12 col-lg-3">
-      <h5>Docs</h5>
+      <h5>...</h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">...</a></li>
       </ul>
     </div>
 
     <div class="col-12 col-lg-3">
-      <h5>API</h5>
+      <h5>...</h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">...</a></li>
       </ul>
     </div>
 
+    <!-- ABOUT -->
     <div class="col-12 col-lg-3">
       <h5>About</h5>
       <ul class="nav flex-column">
