@@ -61,6 +61,26 @@ Game.prototype.init = function() {
       }
     });
   };
+  g.resetPlaceholderButtonStyles = function() {
+    this.getPlaceholderButtons().forEach(function (btn) {
+      g.resetPlaceholderButtonStyle(btn);
+    });
+  };
+  g.resetPlaceholderButtonStyle = function(btn) {
+    [
+      'btn-primary',
+      'btn-success',
+      'btn-danger',
+      'btn-outline-primary',
+      'btn-outline-success',
+      'btn-outline-danger'
+    ].forEach(function (className) {
+      if (btn.classList.contains(className)) {
+        btn.classList.remove(className);
+      }
+    });
+    btn.classList.add('btn-primary');
+  };
 
   g.getObjectsContainerId = function() { return 'randomObjectsContainer'; };
   g.getObjectsContainer = function() { return this.get('#' + this.getObjectsContainerId()); };
@@ -154,6 +174,10 @@ Game.prototype.init = function() {
 
     });
 
+  };
+
+  g.getWordSoundUrl = function(word) {
+    return this.getUrl() + '/api/' + g.getKey() + '/sound/' + g.getLanguage() + '/' + word;
   };
 
 };
