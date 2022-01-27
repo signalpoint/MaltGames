@@ -47,7 +47,6 @@ function objectHuntIcons() {
     'brush' => 0,
     'bug' => 0,
     'building' => 0,
-    'bullhorn' => 0,
     'bullseye' => 0,
     'bus' => 0,
     'cake' => 'birthday-cake',
