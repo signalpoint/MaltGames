@@ -2,15 +2,15 @@
 <html lang="en">
 <?php
 
-  use MaltGames\Site;
+  use MaltKit\Site;
 
   require 'vendor/autoload.php';
 
   require 'config/site.config.php';
 
   // TODO get these outta here!
-  require "src/common.inc";
-  require "src/games.inc"; // TODO might not be needed here anymore
+  require "core/common.inc";
+  require "core/games.inc"; // TODO might not be needed here anymore
 
   // VARIABLES
   // TODO using generic variable names at the global level is bad. Anybody that

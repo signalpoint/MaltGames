@@ -2,7 +2,7 @@
 
 namespace MaltKit;
 
-use MaltGames\Mod;
+use MaltKit\Mod;
 
 class Mk extends Mod {
 
