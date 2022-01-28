@@ -1,6 +1,5 @@
 <?php
 
-  $baseUrl = mkBaseUrl();
   $game = $page->getData();
   $language = mkArg(2);
 
