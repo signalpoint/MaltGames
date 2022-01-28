@@ -6,6 +6,7 @@ class Route {
 
   protected $id;
   protected $path;
+  protected $require;
   protected $page;
 
   public function __construct($id, $route) {
@@ -13,6 +14,7 @@ class Route {
     $this->id = $id;
 
     if (isset($route['path'])) { $this->path = $route['path']; }
+    if (isset($route['require'])) { $this->require = $route['require']; }
     if (isset($route['page'])) { $this->page = new Page($id, $route['page']); }
 
   } // __construct
@@ -30,6 +32,18 @@ class Route {
 
   public function getPath() {
     return $this->path;
+  }
+
+  public function getRequire() {
+    return $this->require;
+  }
+  public function hasRequire() {
+    return !!$this->getRequire();
+  }
+  public function loadRequire() {
+    foreach ($this->getRequire() as $file) {
+      require $file;
+    }
   }
 
   public function getPage() {
