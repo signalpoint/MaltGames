@@ -2,8 +2,8 @@
     "name": "signalpoint/MaltGames",
     "autoload": {
         "psr-4": {
-          "MaltGames\\": "src/",
           "MaltKit\\": [
+            "core/",
             "site/mods/Mk/src/",
             "site/mods/MkDocs/src/"
           ]
