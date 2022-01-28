@@ -1,6 +1,6 @@
 <?php
 
-namespace MaltGames;
+namespace MaltKit;
 
 class Page {
 

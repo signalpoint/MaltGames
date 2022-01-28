@@ -1,11 +1,11 @@
 <?php
 
-namespace MaltGames;
+namespace MaltKit;
 
-use MaltGames\Mod;
-use MaltGames\Theme;
-use MaltGames\Route;
-use MaltGames\Page;
+use MaltKit\Mod;
+use MaltKit\Theme;
+use MaltKit\Route;
+use MaltKit\Page;
 
 class Site {
 
@@ -170,7 +170,7 @@ class Site {
     /**
      *
      * @param type $id
-     * @return MaltGames\Page
+     * @return MaltKit\Page
      */
     public function loadPage($id) {
       return isset($this->pages[$id]) ? $this->pages[$id] : NULL;
