@@ -13,6 +13,8 @@
   require "src/games.inc"; // TODO might not be needed here anymore
 
   // VARIABLES
+  // TODO using generic variable names at the global level is bad. Anybody that
+  // uses e.g. $page = $foo, the whole $page object is wiped out below.
 
   $baseUrl = mkBaseUrl();
   $currentPath = mkPath();
@@ -32,6 +34,9 @@
     $site->initMods($config['mods']);
   }
 
+//  mkDump($site->getMods());
+//  mkDump($site->getRoutes());
+
   // THEMES
 
   // If the site config has themes, add them to the Site.
@@ -47,9 +52,6 @@
   $theme = $site->getTheme($themeId);
   $site->setCurrentTheme($theme);
 
-  // Get the Theme's default page template.
-  $defaultPageTemplate = $theme->getPageTemplate('default');
-
   // ROUTE
 
   // Determine the current route.
@@ -62,8 +64,13 @@
     return;
   }
 
+  // PAGE
+
   // Get the Page from the Route.
   $page = $route->getPage();
+
+  // Get the Theme's default page template.
+  $defaultPageTemplate = $theme->getPageTemplate('default');
 
   // If the title was empty, use the default page title.
   if ($page->getTitle() === '') {
@@ -175,13 +182,16 @@
 
   <body<?php print $page->hasBodyAttributes() ? mkAttributes($page->getBodyAttributes()) : ''?>>
 
-    <!-- HEADER -->
-    <?php require "src/html/header.inc"; ?>
+    <?php
 
-    <?php require $page->getBodyFilePath(); ?>
+    // REGIONS
+    foreach ($theme->getRegions() as $region) {
 
-    <!-- FOOTER -->
-    <?php require "src/html/footer.inc"; ?>
+      require $region['file'];
+
+    }
+
+    ?>
 
     <?php
       // BOTTOM SCRIPTS
