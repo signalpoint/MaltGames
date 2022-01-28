@@ -6,11 +6,13 @@
 
   require 'vendor/autoload.php';
 
-  require 'config/site.config.php';
+  require 'site/config/site.config.php';
 
-  // TODO get these outta here!
+
   require "core/common.inc";
-  require "core/games.inc"; // TODO might not be needed here anymore
+
+  // TODO get this outta here!
+
 
   // VARIABLES
   // TODO using generic variable names at the global level is bad. Anybody that
@@ -57,11 +59,15 @@
   // Determine the current route.
   $route = $site->determineCurrentRoute();
 
-  // Handle 404.
+  // 404 | TODO load up a "404" page, so it can run through the engine below.
   if (!$route) {
-    // TODO load up a "404" page, so it can run through the engine below.
     echo "404 - Not Found";
     return;
+  }
+
+  // If the Route has any "require" files, load them.
+  if ($route->hasRequire()) {
+    $route->loadRequire();
   }
 
   // PAGE
