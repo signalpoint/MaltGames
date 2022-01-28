@@ -68,6 +68,10 @@ class Mk extends Mod {
 
         'path' => 'games',
 
+        'require' => [
+          'core/games.inc',
+        ],
+
         'page' => [
           'head' => [
             'title' => 'MaltKit | Games',
@@ -93,6 +97,10 @@ class Mk extends Mod {
       'mk.game' => [
 
         'path' => 'game',
+
+        'require' => [
+          'core/games.inc',
+        ],
 
         'page' => [
           'head' => [
