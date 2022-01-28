@@ -200,33 +200,6 @@ class Mk extends Mod {
 
       ],
 
-      // DOCS
-      'mk.docs' => [
-
-        'path' => 'docs',
-
-        'page' => [
-          'head' => [
-            'title' => 'MaltKit | Documentation',
-            'metas' => [
-              [
-                'name' => 'description',
-                'content' => 'The documentation for MaltKit.',
-              ]
-            ],
-          ],
-          'body' => [
-            'file' => 'site/pages/docs/docs.tpl.php',
-          ],
-          'controller' => [
-            'file' => 'site/pages/docs/docs.controller.php',
-    //        'load' => 'gamePageControllerLoad',
-    //        'preProcess' => 'gamePageControllerPreProcess',
-          ],
-        ],
-
-      ],
-
       // CONTACT
       'mk.contact' => [
 
