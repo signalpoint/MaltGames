@@ -97,7 +97,7 @@
     <ul class="list-unstyled d-flex">
       <?php foreach (mkSocialNetworks() as $name => $item) { ?>
       <li class="ms-3">
-        <a class="link-dark" href="<?php print $item['url']; ?>" target="_blank">
+        <a class="link-dark" href="<?php print $item['url']; ?>" title="<?php print $item['title']; ?>" target="_blank">
           <i class="fab fa-<?php print $name; ?>"></i>
         </a>
       </li>
