@@ -14,8 +14,8 @@
 // game key matches the game key provided to the api.
 //
 
-require "src/common.inc";
-require "src/games.inc";
+require "core/common.inc";
+require "core/games.inc";
 
 // Set up a function to send appropriate response to the client.
 $responseForClient = function($response, $header) {
