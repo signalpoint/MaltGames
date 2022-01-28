@@ -8,7 +8,7 @@
     <?php foreach (mkSocialNetworks() as $name => $item) { ?>
     <li class="list-group-item">
       <i class="fab fa-<?php print $name; ?> fa-lg me-2"></i>
-      <a href="<?php print $item['url']; ?>" target="_blank" title="Follow MaltKit on <?php print $item['title']; ?>">
+      <a href="<?php print $item['url']; ?>" target="_blank" title="<?php print $item['title']; ?>">
         <?php print $item['handle'] ? "@{$item['handle']}" : $item['title']; ?>
       </a>
     </li>
