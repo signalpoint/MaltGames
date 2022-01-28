@@ -17,11 +17,11 @@ class Page {
   // <body>
   protected $bodyFilePath;
   protected $bodyAttributes;
-  protected $content;
   protected $bottomScripts;
   // </body>
 
   protected $controller;
+  protected $contentTemplate;
 
   public function __construct($id, $page) {
 
@@ -83,7 +83,15 @@ class Page {
 
     // CONTROLLER
 
-    $this->controller = isset($page['controller']) ? $page['controller'] : NULL;
+    $this->controller = isset($page['controller']) ?
+      $page['controller'] :
+      NULL;
+
+    // CONTENT TEMPLATE
+
+    $this->contentTemplate = isset($page['contentTemplate']) ?
+      $page['contentTemplate'] :
+      NULL;
 
   } // __construct
 
@@ -207,19 +215,11 @@ class Page {
     return !!$this->getBodyAttributes();
   }
 
-  public function getContent() {
-    return $this->content;
+  public function getContentTemplate() {
+    return $this->contentTemplate;
   }
-  public function setContent($content) {
-    $this->content = $content;
-  }
-  public function addMultipleContent($content) {
-    foreach ($content as $piece) {
-      $this->addContent($piece);
-    }
-  }
-  public function addContent($content) {
-    $this->content[] = $content;
+  public function setContentTemplate($contentTemplate) {
+    $this->contentTemplate = $contentTemplate;
   }
 
   public function getBottomScripts() {
