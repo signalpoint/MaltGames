@@ -5,37 +5,37 @@ function mkSocialNetworks() {
   return [
 
     'facebook' => [
-      'title' => 'Facebook',
+      'title' => '@MaltKit on Facebook',
       'url' => 'https://www.facebook.com/MaltKit',
       'handle' => 'MaltKit',
     ],
     'twitter' => [
-      'title' => 'Twitter',
+      'title' => '@TheMaltKit on Twitter',
       'url' => 'https://twitter.com/TheMaltKit',
       'handle' => 'TheMaltKit',
     ],
     'youtube' => [
-      'title' => 'YouTube',
+      'title' => 'MaltKit YouTube Channel',
       'url' => 'https://www.youtube.com/channel/UCER1oQBRQSZsuS1qtWQwsbQ',
       'handle' => NULL,
     ],
     'reddit' => [
-      'title' => 'Reddit',
+      'title' => 'MaltKit SubReddit',
       'url' => 'https://www.reddit.com/r/MaltKit/',
       'handle' => 'MaltKit',
     ],
     'instagram' => [
-      'title' => 'Instagram',
+      'title' => '@TheMaltKit on Instagram',
       'url' => 'https://www.instagram.com/themaltkit/',
       'handle' => 'themaltkit',
     ],
     'pinterest' => [
-      'title' => 'Pinterest',
+      'title' => '@TheMaltKit on Pinterest',
       'url' => 'https://www.pinterest.com/themaltkit',
       'handle' => 'themaltkit',
     ],
     'github' => [
-      'title' => 'GitHub',
+      'title' => 'signalpoint/MaltGames on GitHub',
       'url' => 'https://github.com/signalpoint/MaltGames',
       'handle' => 'signalpoint/MaltGames',
     ],
