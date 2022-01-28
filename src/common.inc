@@ -73,6 +73,7 @@ function mkGameUrl($key) {
 
 function mkDump($stuff) {
   echo "<pre>" . print_r($stuff, TRUE) . "</pre>";
+  // "<p>" . debug_backtrace()[1]['function'] . "</p>"
 }
 
 function mkError($stuff) {
