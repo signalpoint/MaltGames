@@ -64,7 +64,7 @@ function my_game_api_hello_get() {
     <li>declaring a basic Resource for the Game API</li>
   </ul>
 
-  <p>... with this code and adding it to <code>src/games.inc</code>:</p>
+  <p>... with this code and adding it to <code>core/games.inc</code>:</p>
 
 <pre>
 'my-game' => [
