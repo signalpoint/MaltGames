@@ -1,7 +1,7 @@
 <?php
 
 // TODO dude what are you doing w/ this naming convention, you need to be using
-// psr4 autoload mechanism(s) and declare a MaltGames\ApiResource and implement
+// psr4 autoload mechanism(s) and declare a MaltKit\ApiResource and implement
 //  ->get(), ->post(), etc.
 
 function color_picker_api_colors_get($languageCode) {
