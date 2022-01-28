@@ -15,7 +15,7 @@
       }
       else { ?>
 
-      <h5>Get Started</h5>
+      <h5>...</h5>
       <ul class="nav flex-column">
         <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">...</a></li>
       </ul>
