@@ -5,9 +5,9 @@ namespace MaltKit;
 class Theme {
 
   protected $id;
-  protected $regions;
-  protected $pageTemplates;
-  protected $contentTemplates;
+  public $regions;
+  public $pageTemplates;
+  public $contentTemplates;
 
   public function __construct($id, $theme) {
 
@@ -28,7 +28,8 @@ class Theme {
 
   } // __construct
 
-  // proxy helpers
+  // PROXIES
+
   public function id() {
     return $this->getId();
   }
