@@ -8,7 +8,6 @@
 
   require 'site/config/site.config.php';
 
-
   require "core/common.inc";
 
   // TODO get this outta here!
@@ -110,16 +109,12 @@
   // <body> : script
   // Add the scripts from the default page's body to the loaded page.
   foreach ([
-//    'content',
     'scripts',
   ] as $type) {
     if (!isset($defaultPageTemplate['body'][$type])) { continue; }
     $items = $defaultPageTemplate['body'][$type];
     if (count($items)) {
       switch ($type) {
-        case 'content':
-//            $page->addMultipleContent($items);
-          break;
         case 'scripts':
           $page->addBottomScripts($items);
           break;
@@ -153,6 +148,7 @@
   }
 
 //  mkDump($page);
+//  mkDump($site->getMods());
 
 ?>
 
@@ -177,7 +173,7 @@
     <?php } } ?>
 
     <?php
-      // CSS
+      // LINKS
       $links = $page->getLinks();
       if ($links) { foreach ($links as $link) {
     ?>
