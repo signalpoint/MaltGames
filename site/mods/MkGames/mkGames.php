@@ -1,5 +1,29 @@
 <?php
 
+// For each Game...
+foreach (mkGames() as $game) {
+
+  // Add a Mod for the Game.
+  $gameModPath = 'sites/games/' . $game['key'];
+  $GLOBALS['site']->addMod($game['key'], [
+    'namespace' => 'MaltKit',
+    'class' => $game['name'],
+    'name' => $game['name'],
+    'path' => $gameModPath,
+    'description' => $game['description'],
+    'files' => [
+      $gameModPath . "/{$game['key']}.php",
+    ],
+  ]);
+
+  // Add a Route for the Game.
+  $GLOBALS['site']->addRoute($game['key'], [
+    'path' => 'games/' . $game['key'],
+    'page' => $game['page'],
+  ]);
+
+}
+
 /**
  * Returns the games.
  * @return type
@@ -26,18 +50,6 @@ function mkGames() {
             'widgets/the-color-to-learn.js',
             'widgets/colored-buttons.js',
             'widgets/score-board.js',
-          ],
-        ],
-      ],
-      'api' => [
-        'colors' => [
-          'get' => [],
-        ],
-        'sound' => [
-          'get' => [
-            'header' => [
-              'Content-Type' => 'audio/mpeg'
-            ],
           ],
         ],
       ],
