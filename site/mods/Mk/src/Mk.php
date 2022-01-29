@@ -23,16 +23,14 @@ class Mk extends Mod {
             'metas' => [
               [
                 'name' => 'description',
-                'content' => 'Home page description...',
+                'content' => 'A tool box for learning modern coding ' .
+                  'technologies and building your own custom games, ' .
+                  'applications and websites, for all devices.',
               ]
             ],
-            'scripts' => [],
-            'links' => [],
           ],
           'body' => [
             'file' => 'site/pages/home/home.tpl.php',
-            'content' => [],
-            'scripts' => [],
           ],
         ],
 
@@ -51,93 +49,9 @@ class Mk extends Mod {
                 'content' => 'Build page description...',
               ]
             ],
-            'scripts' => [],
-            'links' => [],
           ],
           'body' => [
             'file' => 'site/pages/build/build.tpl.php',
-            'content' => [],
-            'scripts' => [],
-          ],
-        ],
-
-      ],
-
-      // GAMES
-      'mk.games' => [
-
-        'path' => 'games',
-
-        'require' => [
-          'core/games.inc',
-        ],
-
-        'page' => [
-          'head' => [
-            'title' => 'MaltKit | Games',
-            'metas' => [
-              [
-                'name' => 'description',
-                'content' => 'Free Games, Learn Languages, Learn to Code with MaltKit',
-              ]
-            ],
-            'scripts' => [],
-            'links' => [],
-          ],
-          'body' => [
-            'file' => 'site/pages/games/games.tpl.php',
-            'content' => [],
-            'scripts' => [],
-          ],
-        ],
-
-      ],
-
-      // GAME
-      'mk.game' => [
-
-        'path' => 'game',
-
-        'require' => [
-          'core/games.inc',
-        ],
-
-        'page' => [
-          'head' => [
-            'title' => 'MaltKit | Game', // TODO $game['name'] | $game['slogan']
-            'metas' => [
-              [
-                'name' => 'description',
-                'content' => 'Game description', // TODO
-              ]
-            ],
-            'scripts' => [
-              // Game Development Kit
-              $baseUrl . '/gdk/game.js',
-              $baseUrl . '/gdk/xhr.js',
-              $baseUrl . '/gdk/api.js',
-              $baseUrl . '/gdk/player.js',
-              $baseUrl . '/gdk/toast-message.js',
-              $baseUrl . '/gdk/chat.js',
-              $baseUrl . '/gdk/message.js',
-
-              // Game Source Code
-              // @see gamePageControllerPreProcess
-            ],
-            'links' => [],
-          ],
-          'body' => [
-            'file' => 'site/pages/game/game.tpl.php',
-            'attributes' => [
-              'onload' => 'loadTheGame()',
-            ],
-            'content' => [],
-            'scripts' => [],
-          ],
-          'controller' => [
-            'file' => 'site/pages/game/game.controller.php',
-            'load' => 'gamePageControllerLoad',
-            'preProcess' => 'gamePageControllerPreProcess',
           ],
         ],
 
@@ -275,6 +189,74 @@ class Mk extends Mod {
       ],
 
     ];
+
+  }
+
+  public function rest() {
+
+    return [
+      'connect' => [
+        'get' => [],
+      ],
+      'mods' => [
+        'get' => [],
+      ],
+      'routes' => [
+        'get' => [],
+      ],
+    ];
+
+  }
+
+  public function api($resource, $method, $data = NULL) {
+
+    $site = $GLOBALS['site'];
+
+    switch ($resource) {
+
+      case 'connect':
+
+        $response = [];
+        $config = mkSiteConfig();
+
+        // MODS
+
+        $response['mods'] = $site->getMods();
+
+        // THEMES
+
+        if (isset($config['themes'])) { $site->addThemes($config['themes']); }
+        $response['themes'] = $site->getThemes();
+
+        // CURRENT THEME (name)
+
+        $response['theme'] = $config['theme'];
+
+        // ROUTES
+
+        $response['routes'] = $site->getRoutes();
+
+        return $response;
+
+        break;
+
+      case 'mods':
+
+        if ($method == 'get') {
+          return $site->getMods();
+        }
+
+        break;
+
+      case 'routes':
+
+        if ($method == 'get') {
+          return $site->getRoutes();
+        }
+
+        break;
+
+    }
 
   }
 
