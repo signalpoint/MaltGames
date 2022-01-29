@@ -6,16 +6,33 @@ use MaltKit\Game;
 
 class ColorPicker extends Game {
 
-//  public function __construct($id, $game) {
-//    parent::__construct($id, $game);
-//  }
+  public function __construct($id, $game) {
+    $this->name = 'ColorPicker';
+    $this->version = '0.0.0';
+    $this->slogan = 'Learn Colors in Another Language';
+    $this->description = 'See, hear and touch colors to quickly learn the names of colors.';
+    $this->page = [
+      'head' => [
+        'scripts' => [
+          'main.js',
+          'brain.js',
+          'widgets/the-color-to-learn.js',
+          'widgets/colored-buttons.js',
+          'widgets/score-board.js',
+        ],
+      ],
+    ];
+    parent::__construct($id, $game);
+  }
 
   public function rest() {
 
     return [
+
       'colors' => [
         'get' => [],
       ],
+
       'sound' => [
         'get' => [
           'header' => [
@@ -23,6 +40,7 @@ class ColorPicker extends Game {
           ],
         ],
       ],
+
     ];
 
   }
