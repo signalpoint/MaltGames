@@ -5,11 +5,13 @@ namespace MaltKit;
 class Mod {
 
   protected $id;
-  protected $namespace;
-  protected $class;
-  protected $name;
-  protected $description;
-  protected $files;
+  public $namespace;
+  public $class;
+  public $name;
+  public $path;
+  public $description;
+  public $files;
+//  public $api;
 
   public function __construct($id, $mod) {
 
@@ -18,8 +20,10 @@ class Mod {
     if (isset($mod['namespace'])) { $this->namespace = $mod['namespace']; }
     if (isset($mod['class'])) { $this->class = $mod['class']; }
     if (isset($mod['name'])) { $this->name = $mod['name']; }
+    if (isset($mod['path'])) { $this->path = $mod['path']; }
     if (isset($mod['description'])) { $this->description = $mod['description']; }
     if (isset($mod['files'])) { $this->files = $mod['files']; }
+//    if (isset($mod['api'])) { $this->api = $mod['api']; }
 
   } // __construct
 
@@ -46,6 +50,10 @@ class Mod {
     return $this->name;
   }
 
+  public function getPath() {
+    return $this->path;
+  }
+
   public function getDescription() {
     return $this->description;
   }
@@ -55,23 +63,34 @@ class Mod {
   }
 
   public function load() {
-//    $namespaceClass = $this->getNamespace() . "\\" . $this->getClass();
-//    use "$namespaceClass";
     foreach ($this->getFiles() as $file) {
       require $file;
     }
+  }
+
+  public function getApi() {
+    return $this->rest();
   }
 
   /**
    *
    * INTERFACES
    *
-   *    Implement these in your extension of Mod.
+   *    Implement these when you extend Mod.
    *
    */
 
+  // TODO rename to routes()
   public function getRoutes() {
     return NULL;
+  }
+
+  public function rest() {
+    return NULL;
+  }
+
+  public function api($resource, $method, $data = NULL) {
+
   }
 
 }
