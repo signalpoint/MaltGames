@@ -12,7 +12,6 @@
           foreach (mkDocsTableOfContentsMenu() as $item) {
             $route = $site->getRoute($item['route']);
             $path = $route->getPath();
-//            mkDump($route);
             $isActive = $currentPath == $path;
             $linkAttrs = [
               'href' => $baseUrl . "/{$path}",
@@ -22,6 +21,7 @@
             ];
             if ($isActive) {
               $linkAttrs['class'][] = 'active';
+              $linkAttrs['class'][] = 'text-dark';
               $linkAttrs['aria-current'] = 'page';
             }
         ?>
