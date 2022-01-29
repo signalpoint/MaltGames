@@ -5,9 +5,9 @@ namespace MaltKit;
 class Route {
 
   protected $id;
-  protected $path;
-  protected $require;
-  protected $page;
+  public $path;
+  public $require;
+  public $page;
 
   public function __construct($id, $route) {
 
