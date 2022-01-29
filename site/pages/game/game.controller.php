@@ -10,26 +10,28 @@ function gamePageControllerPreProcess(&$page) {
   // Add the Game's src code to the page...
 
   $site = mkSite();
+  $baseUrl = $site->getBaseUrl();
   $game = $page->getControllerData();
-  $gameBaseUrl = $site->getBaseUrl() . "/site/games/{$game['key']}";
+  $gameDirUrl = $baseUrl . '/' . $game->getPath();
+  $gamePage = $game->getPage();
 
   // Add any game scripts to page.
-  if (isset($game['page']['head']['scripts'])) {
-    foreach ($game['page']['head']['scripts'] as $fileName) {
-      $url = "{$gameBaseUrl}/js/{$fileName}";
+  if (isset($gamePage['head']['scripts'])) {
+    foreach ($gamePage['head']['scripts'] as $fileName) {
+      $url = "{$gameDirUrl}/js/{$fileName}";
       $page->addJs($url);
     }
   }
 
   // Add any game links to page.
-  if (isset($game['page']['head']['links'])) {
-    foreach ($game['page']['head']['links'] as $fileName) {
-      $url = "{$gameBaseUrl}/css/{$fileName}";
+  if (isset($gamePage['head']['links'])) {
+    foreach ($gamePage['head']['links'] as $fileName) {
+      $url = "{$gameDirUrl}/css/{$fileName}";
       $page->addCss($url);
     }
   }
 
-  // Toast
-  $page->addBottomScript($site->getBaseUrl() . '/gdk/modal.js');
+  // Modal
+  $page->addBottomScript($baseUrl . '/gdk/modal.js');
 
 }
