@@ -13,9 +13,9 @@
       <li class="breadcrumb-item"><a href="<?php print $baseUrl; ?>">Home</a></li>
       <li class="breadcrumb-item"><a href="<?php print $baseUrl; ?>/games">Games</a></li>
       <?php if (!$language) { ?>
-        <li class="breadcrumb-item active" aria-current="page"><?php print $game['name']; ?></li>
+        <li class="breadcrumb-item active" aria-current="page"><?php print $game->getName(); ?></li>
       <?php } else { ?>
-        <li class="breadcrumb-item"><a href="<?php print $game['url']; ?>"><?php print $game['name']; ?></a></li>
+        <li class="breadcrumb-item"><a href="<?php print $game->getUrl(); ?>"><?php print $game->getName(); ?></a></li>
         <li class="breadcrumb-item active" aria-current="page"><?php print $language; ?></li>
       <?php } ?>
 
@@ -24,7 +24,7 @@
 
   <!-- SETTINGS -->
   <!--<button id="changeLanguageBtn" class="btn btn-outline-secondary me-0 me-lg-3 d-none" type="button">
-    <a href="<?php print $game['url']; ?>" class="link-light" title="Change Language">
+    <a href="<?php print $game->getUrl(); ?>" class="link-light" title="Change Language">
       <i class="fas fa-cog"></i><span class="d-none d-lg-inline ms-2">Language</span>
     </a>
   </button>-->
@@ -39,18 +39,18 @@
 
   <div class="col">
 
-    <h1 class="visually-hidden"><?php print $game['name']; ?></h1>
+    <h1 class="visually-hidden"><?php print $game->getName(); ?></h1>
 
     <div class="alert alert-success mt-3" role="alert">
-      Choose a language to play <strong><?php print $game['name']; ?></strong>!
+      Choose a language to play <strong><?php print $game->getName(); ?></strong>!
     </div>
 
     <ul class="list-group">
       <li class="list-group-item">
-        <a href="<?php print $game['url']; ?>/es" title="Learn Color Names in Spanish">Spanish</a>
+        <a href="<?php print $game->getUrl(); ?>/es" title="Learn Color Names in Spanish">Spanish</a>
       </li>
       <li class="list-group-item">
-        <a href="<?php print $game['url']; ?>/vi" title="Learn Color Names in Vietnamese">Vietnamese</a>
+        <a href="<?php print $game->getUrl(); ?>/vi" title="Learn Color Names in Vietnamese">Vietnamese</a>
       </li>
     </ul>
 
@@ -61,7 +61,7 @@
 </div>
 
 <!-- GAME -->
-<?php require "site/games/{$game['key']}/{$game['key']}.php"; ?>
+<?php require "site/games/{$game->getKey()}/{$game->getKey()}.php"; ?>
 
 <!-- TOAST -->
 <div class="toast-container position-absolute p-3 bottom-0 start-50 translate-middle-x" id="toastPlacement" data-original-class="toast-container position-absolute p-3">
