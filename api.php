@@ -8,14 +8,14 @@
 // json/etc, we just set the headers, encode it, and echo it, bingo bango!
 // e.g. game->apiGet('directory', ['format' => 'json']);
 //
-// - figure out a psr4+autoload strategy!
-//
-// - put a basic access layer on this by making sure server request URL's
-// game key matches the game key provided to the api.
-//
+
+use MaltKit\Site;
+
+require 'vendor/autoload.php';
+
+require 'site/config/site.config.php';
 
 require "core/common.inc";
-require "core/games.inc";
 
 // Set up a function to send appropriate response to the client.
 $responseForClient = function($response, $header) {
@@ -33,26 +33,42 @@ $buildHeaderString = function($header) {
   return implode('; ', $items);
 };
 
-// Set up helper variables.
+// VARIABLES
+
 $method = mkMethod();
 $args = explode('/', mkQ());
 $argCount = count($args);
 
-// Set up header defaults.
+// CONFIG
+
+$config = mkSiteConfig();
+
+// SITE
+
+$site = new Site($config);
+
+// MODS
+
+// If the Site config has mods, initialize them.
+if (isset($config['mods'])) {
+  $site->initMods($config['mods']);
+}
+
+// HEADER DEFAULTS
 $header = [
   'Content-Type' => 'application/json',
   'charset' => 'utf-8',
 ];
 
-// Let's check to make sure they provided a game key and resource name...
+// Let's check to make sure they provided a mod and resource name...
 
-// NO GAME KEY PROVIDED
+// NO MOD PROVIDED
 if ($argCount < 1) {
   http_response_code(500);
   $responseForClient([
     'error' => [
       'code' => 500,
-      'msg' => 'No Game Key Provided',
+      'msg' => 'No mod provided',
     ],
   ], $header);
   return;
@@ -64,52 +80,52 @@ if ($argCount < 2) {
   $responseForClient([
     'error' => [
       'code' => 500,
-      'msg' => 'No Resource Name Provided',
+      'msg' => 'No resource provided',
     ],
   ], $header);
   return;
 }
 
-// Gather the game key and load the game.
-$gameKey = array_shift($args);
-$game = mkGameLoad($gameKey);
+// Gather the mod id and load the Module.
+$modName = array_shift($args);
+$mod = $site->getMod($modName);
 
-// Make sure the game exists.
-if (!$game) {
+// Make sure the mod exists.
+if (!$mod) {
 
-  // GAME NOT FOUND
+  // MOD NOT FOUND
   http_response_code(404);
   $responseForClient([
     'error' => [
       'code' => 404,
-      'msg' => 'Game Not Found',
+      'msg' => 'Mod not found',
     ],
   ], $header);
   return;
 
 }
 
-// We've got the game...
+// We've got the mod...
 
 // Get the resource name from the URL path arguments.
 $resource = array_shift($args);
 
-// Load the game's API, if any.
-$api = mkGameLoadApi($gameKey);
+// Load the mod's API, if any.
+$api = $mod->getApi();
 
-// Make sure the game's API exists.
+// Make sure the mod's API exists.
 if (!$api) {
   http_response_code(500);
   $responseForClient([
     'error' => [
       'code' => 500,
-      'msg' => 'No Game API',
+      'msg' => 'No mod API',
     ],
   ], $header);
   return;
 }
 
-// Merge any headers from the game's API.
+// Merge any headers from the mod's API.
 if (isset($api[$resource][$method]['header'])) {
   $header = array_merge($header, $api[$resource][$method]['header']);
 }
@@ -117,42 +133,28 @@ if (isset($api[$resource][$method]['header'])) {
 // Set the header.
 header($buildHeaderString($header));
 
-// If the game's API has a matching resource...
+// If the mod's API has a matching resource...
 if (isset($api[$resource])) {
 
-  // If the game's API implements the method for this resource...
+  // If the mod's API implements the method for this resource...
   if (isset($api[$resource][$method])) {
-
-    // Load the game's API .inc file.
-    $path = "site/games/{$gameKey}/api/{$resource}/{$method}.inc";
-    require $path;
-
-    // Convert dashes to underscores to make a safe game key and resource name.
-    $safeGameKey = strpos($gameKey, "-") !== FALSE ?
-      str_replace("-", "_", $gameKey) : $gameKey;
-    $safeResource = strpos($resource, "-") !== FALSE ?
-      str_replace("-", "_", $resource) : $resource;
-
-    // Determine function name to call for the resource.
-    $function = "{$safeGameKey}_api_{$safeResource}_{$method}";
 
     // Depending on the method, get the response from the resource...
     switch ($method) {
 
       // POST
       case 'post':
-        $response = call_user_func($function, json_decode(file_get_contents('php://input')));
+        $response = $mod->api($resource, $method, json_decode(file_get_contents('php://input')));
         break;
 
       // GET
       // *
       case 'get':
       default:
-        $response = call_user_func_array($function, $args);
+        $response = $mod->api($resource, $method);
         break;
 
     }
-
 
   }
   else {
@@ -162,7 +164,7 @@ if (isset($api[$resource])) {
     $response = [
       'error' => [
         'code' => 405,
-        'msg' => 'Method Not Allowed',
+        'msg' => 'Method not allowed',
       ],
     ];
 
@@ -176,7 +178,7 @@ else {
   $response = [
     'error' => [
       'code' => 404,
-      'msg' => 'Resource Not Found',
+      'msg' => 'Resource not found',
     ],
   ];
 
