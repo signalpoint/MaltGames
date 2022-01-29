@@ -7,21 +7,20 @@ class Page {
   protected $id;
 
   // <head>
-  protected $title;
-//  protected $description;
-  protected $metas;
-  protected $scripts;
-  protected $links;
+  public $title;
+  public $metas;
+  public $scripts;
+  public $links;
   // </head>
 
   // <body>
-  protected $bodyFilePath;
-  protected $bodyAttributes;
-  protected $bottomScripts;
+  public $bodyFilePath; // TODO consider rename to content; allow array of items
+  public $bodyAttributes;
+  public $bottomScripts;
   // </body>
 
-  protected $controller;
-  protected $contentTemplate;
+  public $controller;
+  public $contentTemplate;
 
   public function __construct($id, $page) {
 
@@ -51,9 +50,6 @@ class Page {
           case 'title':
             $this->title = $item;
             break;
-          case 'description':
-            $this->description = $item;
-            break;
           case 'metas':
             $this->metas = $item;
             break;
@@ -71,9 +67,9 @@ class Page {
     if (count($body)) {
       foreach ($body as $type => $item) {
         switch ($type) {
-          case 'content':
-            $this->content = $item;
-            break;
+//          case 'content':
+//            $this->content = $item;
+//            break;
           case 'scripts':
             $this->bottomScripts = $item;
             break;
@@ -95,7 +91,8 @@ class Page {
 
   } // __construct
 
-  // proxy helpers
+  // PROXIES
+
   public function id() {
     return $this->getId();
   }
@@ -109,7 +106,7 @@ class Page {
     return $this->hasControllerData() ? $this->getControllerData() : NULL;
   }
 
-  // VARIABLES...
+  // VARIABLES
 
   public function getId() {
     return $this->id;
@@ -121,13 +118,6 @@ class Page {
   public function setTitle($title) {
     $this->title = $title;
   }
-
-//  public function getDescription() {
-//    return $this->description;
-//  }
-//  public function setDescription($description) {
-//    $this->description = $description;
-//  }
 
   public function getMetas() {
     return $this->metas;
