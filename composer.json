@@ -3,9 +3,15 @@
     "autoload": {
         "psr-4": {
           "MaltKit\\": [
-            "core/mods/",
+            "core/",
             "site/mods/Mk/src/",
-            "site/mods/MkDocs/src/"
+            "site/mods/MkDocs/src/",
+            "site/mods/MkGames/src/",
+              "site/games/color-picker/src/",
+              "site/games/example/src/",
+              "site/games/number-pad/src/",
+              "site/games/object-hunt/src/",
+              "site/games/word-dash/src/"
           ]
         }
     },
