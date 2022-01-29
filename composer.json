@@ -3,7 +3,7 @@
     "autoload": {
         "psr-4": {
           "MaltKit\\": [
-            "core/",
+            "core/mods/",
             "site/mods/Mk/src/",
             "site/mods/MkDocs/src/"
           ]
