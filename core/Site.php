@@ -14,7 +14,7 @@ class Site {
     protected $currentTheme;
     protected $routes;
     protected $currentRoute;
-    protected $pages;
+    protected $pages; // TODO is this even used?
     protected $protocol;
     protected $domain;
     protected $baseUrl;
@@ -35,6 +35,7 @@ class Site {
     }
 
     // MODS
+
     public function getMods() { return $this->mods; }
     public function addMods($mods) {
       foreach ($mods as $id => $mod) {
@@ -58,7 +59,7 @@ class Site {
       // Add mods to site.
       $this->addMods($mods);
 
-      // For each initialized mod on the site...
+      // Initialize each mod.
       foreach ($this->getMods() as $id => $mod) {
         $this->initMod($mod);
       }
@@ -76,6 +77,7 @@ class Site {
     }
 
     // THEMES
+
     public function getThemes() { return $this->themes; }
     public function addThemes($themes) {
       foreach ($themes as $id => $theme) {
@@ -83,7 +85,9 @@ class Site {
       }
     }
     public function addTheme($id, $theme) {
-      $this->themes[$id] = new Theme($id, $theme);
+//      $this->themes[$id] = new Theme($id, $theme);
+      $themeClass = "{$theme['namespace']}\\{$theme['class']}";
+      $this->themes[$id] = new $themeClass($id, $theme);
     }
     public function getTheme($id) {
       return isset($this->themes[$id]) ? $this->themes[$id] : NULL;
@@ -94,8 +98,36 @@ class Site {
     public function setCurrentTheme($theme) {
       $this->currentTheme = $theme;
     }
+    public function initThemes($themes) {
+
+      // Add themes to site.
+      $this->addThemes($themes);
+
+      // For each theme on the site.
+      // TODO only need to init the current theme, dummy.
+      foreach ($this->getThemes() as $id => $theme) {
+        $this->initTheme($theme);
+      }
+
+    }
+    public function initTheme($theme) {
+
+      // Add the Theme's Regions.
+      $regions = $theme->regions();
+      if ($regions) { $theme->addRegions($regions); }
+
+      // Add the Theme's Page Templates.
+      $pageTemplates = $theme->pageTemplates();
+      if ($pageTemplates) { $theme->addPageTemplates($pageTemplates); }
+
+      // Add the Theme's Content Templates.
+      $contentTemplates = $theme->contentTemplates();
+      if ($contentTemplates) { $theme->addContentTemplates($contentTemplates); }
+
+    }
 
     // ROUTES
+
     public function getRoutes() { return $this->routes; }
     public function addRoutes($routes) {
       foreach ($routes as $id => $route) {
@@ -158,6 +190,7 @@ class Site {
     }
 
     // PAGES
+
     public function addPages($pages) {
       foreach ($pages as $id => $page) {
         $this->addPage($id, $page);
