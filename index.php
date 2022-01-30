@@ -6,11 +6,9 @@
 
   require 'vendor/autoload.php';
 
-  require 'site/config/site.config.php';
+  include 'site/config/site.config.php';
 
   require "core/common.inc";
-
-  // TODO get this outta here!
 
 
   // VARIABLES
@@ -35,14 +33,11 @@
     $site->initMods($config['mods']);
   }
 
-//  mkDump($site->getMods());
-//  mkDump($site->getRoutes());
-
   // THEMES
 
-  // If the site config has themes, add them to the Site.
+  // If the site config has themes, initialize them.
   if (isset($config['themes'])) {
-    $site->addThemes($config['themes']);
+    $site->initThemes($config['themes']);
   }
 
   // CURRENT THEME
@@ -147,8 +142,10 @@
 
   }
 
-//  mkDump($page);
 //  mkDump($site->getMods());
+//  mkDump($site->getRoutes());
+//  mkDump($theme);
+//  mkDump($page);
 
 ?>
 

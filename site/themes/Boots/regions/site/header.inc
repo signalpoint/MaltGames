@@ -22,6 +22,13 @@
 //      ],
 //    ],
 
+    // SITES
+    'sites' => [
+      'path' => 'sites',
+      'text' => 'Sites',
+      'icon' => NULL,
+    ],
+
     // GAMES
     'games' => [
       'path' => 'games',
@@ -37,13 +44,6 @@
       'path' => 'apps',
       'text' => 'Apps',
       'icon' => 'mobile-alt',
-    ],
-
-    // SITES
-    'sites' => [
-      'path' => 'sites',
-      'text' => 'Sites',
-      'icon' => NULL,
     ],
 
     // MUSIC
