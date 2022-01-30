@@ -2,53 +2,61 @@
 
   <h2>Get Started Building a Site</h2>
 
-  <p>1. on your web server, open your public html directory:</p>
+  <p>1. On your web server, create a directory for your Site:</p>
+
+<pre>
+mkdir www
+</pre>
+
+  <p>2. Download and unzip MaltKit in the directory:</p>
 
 <pre>
 cd www
-</pre>
-
-  <p>2. download and unzip MaltGames to a folder:</p>
-
-<pre>
 wget -q https://github.com/signalpoint/MaltGames/archive/refs/heads/main.zip
 unzip -q main.zip
-mv MaltGames-main my-app
+cd MaltGames-main/
+mv * .gitignore .htaccess ../
+cd ..
+rmdir MaltGames-main/
 rm main.zip
 </pre>
 
-  <p>3. use composer to install:</p>
+  <p>3. Use Composer to install:</p>
 
 <pre>
-cd my-app
 composer install
 </pre>
 
-  <p>3. download font awesome 5:</p>
+  <p>3. Download Font Awesome 5:</p>
 
-https://fontawesome.com/download
+  <p>Use the <a href="https://fontawesome.com/download" target="_blank">Font Awesome 5 Download Page</a>
+  to get the "Free for Web" version.</p>
 
-  <p>4. upload font awesome to your web server</p>
+  <p>4. Upload Font Awesome 5 to your web server</p>
 
 <pre>
-scp fontawesome-free-5.15.4-web.zip me@[my-server-ip]:~/
+scp ~/Desktop/fontawesome-free-5.15.4-web.zip me@[my-server-ip]:~/
 </pre>
 
-  <p>5. unzip font awesome on your web server</p>
+  <p>5. Unzip Font Awesome 5 on your web server</p>
 
 <pre>
 cd vendor
-cp ~/fontawesome-free-5.15.4-web.zip
-unzip fontawesome-free-5.15.4-web.zip
+cp ~/fontawesome-free-5.15.4-web.zip .
+unzip -q fontawesome-free-5.15.4-web.zip
 rm fontawesome-free-5.15.4-web.zip
+cd ..
 </pre>
 
-  <p>6. open your app in a browser</p>
+  <p>6. Open your Site in a browser</p>
 
-https://example.com/my-app
+  <pre>https://example.com/my-app</pre>
 
-  <p>Ok? Go!</p>
+  <p>Next, try...</p>
 
-  <p>Next try, <a href="/docs/games">building a Game</a>.</p>
+  <ul>
+    <li><a href="/docs/sites">Creating a Mod</a></li>
+    <li><a href="/docs/games">Building a Game</a></li>
+  </ul>
 
 </div>
