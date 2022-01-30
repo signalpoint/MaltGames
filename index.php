@@ -151,55 +151,80 @@
 
   <head>
 
-    <?php
-      // META TAGS
+    <?php // META TAGS
+
       $metaTags = $page->getMetas();
-      if ($metaTags) { foreach ($metaTags as $meta) {
+      if ($metaTags) {
+        foreach ($metaTags as $meta) {
+
     ?>
     <meta <?php print mkAttributes($meta); ?>>
-    <?php } } ?>
+    <?php
+
+        }
+      }
+
+    ?>
 
     <title><?php print $page->getTitle(); ?></title>
 
-    <?php
-      // SCRIPTS
+    <?php // SCRIPTS
+
       $scripts = $page->getScripts();
-      if ($scripts) { foreach ($scripts as $script) {
+      if ($scripts) {
+        foreach ($scripts as $script) {
+
     ?>
     <script <?php print is_array($script) ? mkAttributes($script) : 'src="' . $script . '"'; ?>></script>
-    <?php } } ?>
-
     <?php
-      // LINKS
+
+        }
+      }
+
+    ?>
+
+    <?php // LINKS
+
       $links = $page->getLinks();
-      if ($links) { foreach ($links as $link) {
+      if ($links) {
+        foreach ($links as $link) {
+
     ?>
     <link <?php print mkAttributes($link); ?>>
-    <?php } } ?>
+    <?php
+
+        }
+      }
+
+    ?>
 
   </head>
 
   <body<?php print $page->hasBodyAttributes() ? mkAttributes($page->getBodyAttributes()) : ''?>>
 
-    <?php
+    <?php // REGIONS
 
-    // REGIONS
     foreach ($theme->getRegions() as $region) {
-
-      require $region['file'];
-
+      include $region['file'];
     }
 
     ?>
 
-    <?php
-      // BOTTOM SCRIPTS
+    <?php // BOTTOM SCRIPTS
+
       // TODO rename to getBodyScripts()
       $bottomScripts = $page->getBottomScripts();
-      if ($bottomScripts) { foreach ($bottomScripts as $script) {
+      if ($bottomScripts) {
+        foreach ($bottomScripts as $script) {
+
     ?>
     <script <?php print is_array($script) ? mkAttributes($script) : 'src="' . $script . '"'; ?>></script>
-    <?php } } ?>
+    <?php
+
+        }
+      }
+
+    ?>
 
   </body>
 
