@@ -11,7 +11,8 @@
               "site/games/example/src/",
               "site/games/number-pad/src/",
               "site/games/object-hunt/src/",
-              "site/games/word-dash/src/"
+              "site/games/word-dash/src/",
+            "site/themes/Boots/src/"
           ]
         }
     },
