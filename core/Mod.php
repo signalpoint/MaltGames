@@ -11,7 +11,6 @@ class Mod {
   public $path;
   public $description;
   public $files;
-//  public $api;
 
   public function __construct($id, $mod) {
 
@@ -23,7 +22,6 @@ class Mod {
     if (isset($mod['path'])) { $this->path = $mod['path']; }
     if (isset($mod['description'])) { $this->description = $mod['description']; }
     if (isset($mod['files'])) { $this->files = $mod['files']; }
-//    if (isset($mod['api'])) { $this->api = $mod['api']; }
 
   } // __construct
 
