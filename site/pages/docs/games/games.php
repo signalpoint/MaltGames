@@ -11,14 +11,13 @@
 
   <h3>1. Clone the Example Game</h3>
 
-  <p>Next, use the following terminal commands to create the code base for your
+  <p>Next, use the following terminal commands to create the code base for
     <code>my-game</code>.</p>
 
 <pre>
 cd www
 gameName=my-game
 cp -r site/games/example site/games/$gameName
-sed -i "s/example/$gameName/g" site/games/$gameName/api/hello/get.inc
 sed -i "s/example/$gameName/g" site/games/$gameName/js/*.js
 </pre>
 
@@ -33,25 +32,7 @@ sed -i "s/example/$gameName/g" site/games/$gameName/js/*.js
 
   <h3>2. Download Game to Editor</h3>
 
-  <p>Now download the `my-game` folder into your editor to start building your game!</p>
-
-  <h4>2a. Fix a Line of Code</h4>
-
-  <p><strong>Important</strong>, open <code>site/games/my-game/api/hello/get.inc</code>
-    and change this line...</p>
-
-<pre>
-function my-game_api_hello_get() {
-</pre>
-
-  <p>to this:</p>
-
-<pre>
-function my_game_api_hello_get() {
-</pre>
-
-  <p><code>TODO</code>: Improve <code>sed</code> command above to replace
-    hyphens with underscores as needed.</p>
+  <p>Now download the <code>my-game</code> folder into your editor to start building your game!</p>
 
   <h3>3. Add the Game to the Site</h3>
 
