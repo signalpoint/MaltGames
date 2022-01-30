@@ -5,6 +5,12 @@ function mkDocsTableOfContentsMenu() {
   // way they have all the goodies with html,head,body,etc alongside them.
   return [
 
+    // SITES
+    'sites' => [
+      'text' => 'Sites',
+      'route' => 'mkDocs.sites',
+    ],
+
     // GAMES
     'games' => [
       'text' => 'Games',
@@ -15,12 +21,6 @@ function mkDocsTableOfContentsMenu() {
     'apps' => [
       'text' => 'Apps',
       'route' => 'mkDocs.apps',
-    ],
-
-    // SITES
-    'sites' => [
-      'text' => 'Sites',
-      'route' => 'mkDocs.sites',
     ],
 
   ];
