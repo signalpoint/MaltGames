@@ -6,6 +6,19 @@ use MaltKit\Mod;
 
 class MkDocs extends Mod {
 
+  public function __construct($id, $mod) {
+
+    $this->name = 'MaltKit Docs';
+    $this->path = 'site/mods/MkDocs';
+    $this->description = 'The MaltKit Docs Mod.';
+    $this->files = [
+      'site/mods/MkDocs/mkDocs.php',
+    ];
+
+    parent::__construct($id, $mod);
+
+  }
+
   public function getRoutes() {
 
     $baseUrl = mkBaseUrl();
@@ -43,6 +56,18 @@ class MkDocs extends Mod {
 
       ],
 
+      // DOCS / SITES
+      'mkDocs.sites' => [
+        'path' => 'docs/sites',
+        'page' => [
+          'body' => [
+            'file' => $baseDir . '/sites/sites.php',
+          ],
+          'controller' => $controller,
+          'contentTemplate' => 'docs',
+        ],
+      ],
+
       // DOCS / GAMES
       'mkDocs.games' => [
         'path' => 'docs/games',
@@ -61,18 +86,6 @@ class MkDocs extends Mod {
         'page' => [
           'body' => [
             'file' => $baseDir . '/apps/apps.php',
-          ],
-          'controller' => $controller,
-          'contentTemplate' => 'docs',
-        ],
-      ],
-
-      // DOCS / SITES
-      'mkDocs.sites' => [
-        'path' => 'docs/sites',
-        'page' => [
-          'body' => [
-            'file' => $baseDir . '/sites/sites.php',
           ],
           'controller' => $controller,
           'contentTemplate' => 'docs',
