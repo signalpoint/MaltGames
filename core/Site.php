@@ -27,7 +27,7 @@ class Site {
       $this->routes = [];
       $this->currentRoute = NULL;
       $this->pages = [];
-      $this->pageTemplates = [];
+//      $this->pageTemplates = [];
       $this->protocol = mkProtocol();
       $this->domain = mkDomain();
       $this->baseUrl = mkBaseUrl();
