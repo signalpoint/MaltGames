@@ -1,30 +1,30 @@
 <?php
 
 // For each Game...
-foreach (mkGames() as $game) {
-
-  $gameModPath = 'site/games/' . $game['key'];
-  $gameFiles = [
-    $gameModPath . "/{$game['key']}.php",
-  ];
-  if (isset($game['files'])) {
-    foreach ($game['files'] as $i => $file) {
-      $game['files'][$i] = $gameModPath . '/' . $file;
-    }
-    $gameFiles = array_merge($gameFiles, $game['files']);
-  }
-
-  // Add the Mod from the Game to the Site.
-  $GLOBALS['site']->addMod($game['key'], [
-    'namespace' => 'MaltKit',
-    'class' => $game['name'],
-    'name' => $game['name'],
-    'path' => $gameModPath,
-    'files' => $gameFiles,
-    'url' => $game['url'],
-  ]);
-
-}
+//foreach (mkGames() as $game) {
+//
+//  $gameModPath = 'site/games/' . $game['key'];
+//  $gameFiles = [
+//    $gameModPath . "/{$game['key']}.php",
+//  ];
+//  if (isset($game['files'])) {
+//    foreach ($game['files'] as $i => $file) {
+//      $game['files'][$i] = $gameModPath . '/' . $file;
+//    }
+//    $gameFiles = array_merge($gameFiles, $game['files']);
+//  }
+//
+//  // Add the Mod from the Game to the Site.
+//  $GLOBALS['site']->addMod($game['key'], [
+//    'namespace' => 'MaltKit',
+//    'class' => $game['name'],
+//    'name' => $game['name'],
+//    'path' => $gameModPath,
+//    'files' => $gameFiles,
+//    'url' => $game['url'],
+//  ]);
+//
+//}
 
 /**
  * Returns the games.
@@ -87,5 +87,33 @@ function mkGames() {
  * @return Game
  */
 function mkGameLoad($key) {
+  print "mkGameLoad() - temporarily returning null";
+  return NULL;
+  //return $GLOBALS['site']->getMod($key);
+
+  $gameModPath = "site/games/{$key}";
+
+  $gameFiles = [
+    $gameModPath . "/{$key}.php",
+  ];
+
+  if (isset($game['files'])) {
+    foreach ($game['files'] as $i => $file) {
+      $game['files'][$i] = $gameModPath . '/' . $file;
+    }
+    $gameFiles = array_merge($gameFiles, $game['files']);
+  }
+
+  // Add the Mod from the Game to the Site.
+  $GLOBALS['site']->addMod($game['key'], [
+    'namespace' => 'MaltKit',
+    'class' => $game['name'],
+    'name' => $game['name'],
+    'path' => $gameModPath,
+    'files' => $gameFiles,
+    'url' => $game['url'],
+  ]);
+
   return $GLOBALS['site']->getMod($key);
+
 }
