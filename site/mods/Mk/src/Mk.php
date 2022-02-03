@@ -6,9 +6,20 @@ use MaltKit\Mod;
 
 class Mk extends Mod {
 
-  public function getRoutes() {
+  public function __construct($id, $mod) {
 
-    $baseUrl = mkBaseUrl();
+    $this->name = 'MaltKit';
+    $this->path = 'site/mods/Mk';
+    $this->description = 'The MaltKit Mod.';
+    $this->files = [
+      'site/mods/Mk/mk.php',
+    ];
+
+    parent::__construct($id, $mod);
+
+  }
+
+  public function getRoutes() {
 
     return [
 
