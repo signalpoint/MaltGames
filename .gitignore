@@ -1,2 +1,5 @@
 site/config/site.config.php
+site/mods
+!site/mods/Example
+site/themes
 vendor
