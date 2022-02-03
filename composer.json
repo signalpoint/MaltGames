@@ -4,6 +4,7 @@
         "psr-4": {
           "MaltKit\\": [
             "core/",
+            "site/mods/Example/src/",
             "site/mods/Mk/src/",
             "site/mods/MkDocs/src/",
             "site/mods/MkGames/src/",
