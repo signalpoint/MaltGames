@@ -7,8 +7,29 @@ function mkDocsTableOfContentsMenu() {
 
     // SITES
     'sites' => [
+
       'text' => 'Sites',
       'route' => 'mkDocs.sites',
+
+      'routes' => [
+
+        'config' => [
+          'text' => 'Config',
+          'route' => 'mkDocs.config',
+        ],
+
+        'mods' => [
+          'text' => 'Mods',
+          'route' => 'mkDocs.mods',
+        ],
+
+        'themes' => [
+          'text' => 'Themes',
+          'route' => 'mkDocs.themes',
+        ],
+
+      ],
+
     ],
 
     // GAMES

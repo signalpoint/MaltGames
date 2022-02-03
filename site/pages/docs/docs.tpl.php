@@ -1,3 +1,7 @@
+<?php
+  // TODO rename this file to docs.php
+  // - same with any other tpl.php file that isn't in the theme folder
+?>
 <div class="container">
 
   <h1 class="visually-hidden">MaltKit Documentation</h1>

@@ -31,7 +31,7 @@ class MkDocs extends Mod {
 //      'preProcess' => 'gamePageControllerPreProcess',
     ];
 
-    return [
+    $routes = [
 
       // DOCS
       'mkDocs.docs' => [
@@ -63,10 +63,38 @@ class MkDocs extends Mod {
           'body' => [
             'file' => $baseDir . '/sites/sites.php',
           ],
-          'controller' => $controller,
-          'contentTemplate' => 'docs',
         ],
       ],
+
+        // DOCS / SITES / CONFIG
+        'mkDocs.config' => [
+          'path' => 'docs/sites/config',
+          'page' => [
+            'body' => [
+              'file' => $baseDir . '/sites/config.php',
+            ],
+          ],
+        ],
+
+        // DOCS / SITES / MODS
+        'mkDocs.mods' => [
+          'path' => 'docs/sites/mods',
+          'page' => [
+            'body' => [
+              'file' => $baseDir . '/sites/mods.php',
+            ],
+          ],
+        ],
+
+        // DOCS / SITES / THEMES
+        'mkDocs.themes' => [
+          'path' => 'docs/sites/themes',
+          'page' => [
+            'body' => [
+              'file' => $baseDir . '/sites/themes.php',
+            ],
+          ],
+        ],
 
       // DOCS / GAMES
       'mkDocs.games' => [
@@ -75,8 +103,6 @@ class MkDocs extends Mod {
           'body' => [
             'file' => $baseDir . '/games/games.php',
           ],
-          'controller' => $controller,
-          'contentTemplate' => 'docs',
         ],
       ],
 
@@ -87,12 +113,20 @@ class MkDocs extends Mod {
           'body' => [
             'file' => $baseDir . '/apps/apps.php',
           ],
-          'controller' => $controller,
-          'contentTemplate' => 'docs',
         ],
       ],
 
     ];
+
+    // Set the controller and content template for all routes except the docs
+    // home page.
+    foreach ($routes as $id => $route) {
+      if ($id == 'mkDocs.docs') { continue; }
+      $routes[$id]['page']['controller'] = $controller;
+      $routes[$id]['page']['contentTemplate'] = 'docs';
+    }
+
+    return $routes;
 
   }
 
