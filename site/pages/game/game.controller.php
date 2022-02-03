@@ -7,13 +7,16 @@ function gamePageControllerLoad(&$page) {
 
 function gamePageControllerPreProcess(&$page) {
 
-  // Add the Game's src code to the page...
-
   $site = mkSite();
   $baseUrl = $site->getBaseUrl();
   $game = $page->getControllerData();
-  $gameDirUrl = $baseUrl . '/' . $game->getPath();
+
+  return;
+
   $gamePage = $game->getPage();
+  $gameDirUrl = $baseUrl . '/' . $game->getPath();
+
+  // Add the Game's src code to the page...
 
   // Add any game scripts to page.
   if (isset($gamePage['head']['scripts'])) {
