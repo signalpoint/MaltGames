@@ -10,7 +10,7 @@ class Boots extends Theme {
 
     $this->namespace = 'MaltKit';
     $this->class = 'Boots';
-    $this->name = 'Bootstrap 5 Theme';
+    $this->name = 'Boots Theme';
     $this->path = 'site/themes/Boots';
     $this->description = 'The Bootstrap 5 Theme for MaltKit.';
 
@@ -71,7 +71,7 @@ class Boots extends Theme {
 
             // Theme CSS
             [
-              'href' => $baseUrl . '/site/themes/bs/css/bs.css',
+              'href' => $baseUrl . '/site/themes/Boots/css/bs.css',
               'rel' => 'stylesheet'
             ],
 
