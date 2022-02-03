@@ -6,6 +6,19 @@ use MaltKit\Mod;
 
 class MkGames extends Mod {
 
+  public function __construct($id, $mod) {
+
+    $this->name = 'MaltKit Games';
+    $this->path = 'site/mods/MkGames';
+    $this->description = 'The MaltKit Games Mod';
+    $this->files = [
+      'site/mods/MkGames/mkGames.php',
+    ];
+
+    parent::__construct($id, $mod);
+
+  }
+
   public function getRoutes() {
 
     $baseUrl = mkBaseUrl();
