@@ -7,12 +7,12 @@ class Square extends Polygon {
 
   constructor(id, entity) {
     super(id, entity);
-    this._type = 'Square';
+    this.type = 'Square';
   }
 
   // METHODS
 
-  get length() { return this._length; }
+//  get length() { return this.length; }
 
   // INTERFACE
 

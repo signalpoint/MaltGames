@@ -12,10 +12,10 @@ class MkImage extends Entity {
 
   // METHODS
 
-  get width() { return this._width; }
-  get height() { return this._height; }
-  get src() { return this._src; }
-  get img() { return this._img; }
+//  get width() { return this.width; }
+//  get height() { return this.height; }
+//  get src() { return this.src; }
+//  get img() { return this.img; }
 
   // INTERFACE
 
@@ -27,12 +27,12 @@ class MkImage extends Entity {
     // IMAGE
 
     // TODO the loading should take place at game start, not in the draw!
-    var img = this._img;
+    var img = this.img;
     if (!img) { // load and save to memory...
       var self = this;
       img = new Image();
       img.onload = function() {
-        self._img = img;
+        self.img = img;
         self.render();
       };
       img.src = this.src;

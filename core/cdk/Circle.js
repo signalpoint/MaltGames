@@ -11,7 +11,7 @@ class Circle extends Entity {
 
   // METHODS
 
-  get radius() { return this._radius; }
+//  get radius() { return this.radius; }
 
   // INTERFACE
 
