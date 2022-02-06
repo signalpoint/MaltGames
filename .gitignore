@@ -1,5 +1,10 @@
 site/config/site.config.php
-site/mods
+
+site/mods/*
+!site/mods/README.md
 !site/mods/Example
-site/themes
+
+site/themes/*
+!site/themes/README.md
+
 vendor
