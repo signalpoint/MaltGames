@@ -22,14 +22,6 @@ class Entity {
     // GRAVITY
 
     this._gravity = 0;
-//    this._gX = 0;
-//    this._gY = 0;
-//    this._gravitySpeed = 0;
-
-    // SPEED
-
-//    this._speedX = 0;
-//    this._speedY = 0;
 
     // BEHAVIORS
 
