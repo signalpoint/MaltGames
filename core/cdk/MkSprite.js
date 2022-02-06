@@ -1,20 +1,18 @@
 class MkSprite extends Entity {
 
   // PROPERTIES
-  //  width
-  //  height
-  //  x - src
-  //  sheets
-  //  sheet
-  //  x - img
-  //  frameWidth
-  //  frameHeight
-  //  frames
-  //  rows
-  //  cols
-  //  row
-  //  col
-  //  currentFrame
+  //  width {Number}
+  //  height {Number}
+  //  sheets {Object}
+  //  sheet {Object}
+  //    frameWidth
+  //    frameHeight
+  //    frames
+  //    rows
+  //    cols
+  //    row
+  //    col
+  //    currentFrame
 
   constructor(id, entity) {
     super(id, 'Sprite', entity);
@@ -22,28 +20,11 @@ class MkSprite extends Entity {
 
   // METHODS
 
-  get width() { return this._width; }
-  get height() { return this._height; }
+//  get width() { return this.width; }
+//  get height() { return this.height; }
 
-//  get src() { return this._src; }
-
-  get sheets() { return this._sheets; }
-  get sheet() { return this._sheet; }
-//  set sheet(s) { this._sheet = s; }
-//
-//  get img() { return this._img; }
-
-//  get frameWidth() { return this._frameWidth; }
-//  get frameHeight() { return this._frameHeight; }
-//  get frames() { return this._frames; }
-//  get rows() { return this._rows; }
-//  get cols() { return this._cols; }
-//  get row() { return this._row; }
-//  set row(i) { this._row = i; }
-//  get col() { return this._col; }
-//  set col(i) { this._col = i; }
-//  get currentFrame() { return this._currentFrame; }
-//  set currentFrame(frame) { this._currentFrame = frame; }
+//  get sheets() { return this.sheets; }
+//  get sheet() { return this.sheet; }
 
   loadSheets(ok) {
 
@@ -94,7 +75,7 @@ class MkSprite extends Entity {
   }
 
   animate(sheetName) {
-    this._sheet = sheetName;
+    this.sheet = sheetName;
   }
 
   // INTERFACE
