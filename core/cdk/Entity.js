@@ -2,41 +2,40 @@ class Entity {
 
   constructor(id, type, entity) {
 
-    this._id = id;
-    this._type = type;
+    this.id = id;
+    this.type = type;
 
-//    this._Path2D = new Path2D();
-
-    this._ctx = null;
+    this.ctx = null;
 
     // COORDS
 
-    this._x = null;
-    this._y = null;
+    this.x = null;
+    this.y = null;
 
     // VELOCITY
 
-    this._vX = 0;
-    this._vY = 0;
+    this.vX = 0;
+    this.vY = 0;
 
     // GRAVITY
 
-    this._gravity = 0;
+    this.gravity = 0;
 
     // BEHAVIORS
 
-    this._behaviors = [];
+    this.behaviors = [];
 
     // ANIMATION TIMER
 
-    this._animationTimer = null;
+    this.animationTimer = null;
 
     // INCOMING PROPERTIES
 
     // Attach any incoming entity properties to this.
     if (entity) {
       for (const [property, value] of Object.entries(entity)) {
-        this['_' + property] = value;
+        //this['_' + property] = value;
+        this[property] = value;
       }
     }
 
@@ -44,60 +43,43 @@ class Entity {
 
   // METHODS
 
-  get id() { return this._id; }
-  get type() { return this._type; }
+//  get id() { return this.id; }
+//  set id(id) { this.id = id; }
+
+//  get type() { return this.type; }
+//  set type(type) { this.type = type; }
 
 //  get path2D() { return this._Path2D; }
   path2D() { return new Path2D(); }
 
-  get ctx() { return this._ctx; }
+//  get ctx() { return this.ctx; }
+//  set ctx(ctx) { this.ctx = ctx; }
 
   // position
 
-  get x() { return this._x; }
-  set x(x) { this._x = x; }
+//  get x() { return this.x; }
+//  set x(x) { this.x = x; }
 
-  get y() { return this._y; }
-  set y(y) { this._y = y; }
+//  get y() { return this.y; }
+//  set y(y) { this.y = y; }
 
   // velocity
 
-  get velocityX() { return this._vX; }
-  set velocityX(vX) { this._vX = vX; }
+//  get velocityX() { return this.vX; }
+//  set velocityX(vX) { this.vX = vX; }
 
-  get velocityY() { return this._vY; }
-  set velocityY(vY) { this._vY = vY; }
+//  get velocityY() { return this.vY; }
+//  set velocityY(vY) { this.vY = vY; }
 
   // gravity
 
-  get gravity() { return this._gravity; }
-  set gravity(g) { this._gravity = g; }
-
-//  get gravityX() { return this._gX; }
-//  set gravityX(gX) { this._gX = gX; }
-//
-//  get gravityY() { return this._gY; }
-//  set gravityY(gY) { this._gY = gY; }
-
-//  get gravitySpeed() { return this._gravitySpeed; }
-//  set gravitySpeed(speed) { this._gravitySpeed = speed; }
-
-  // speed
-
-//  get speedX() { return this._speedX; }
-//  set speedX(speedX) { this._speedX = speedX; }
-//
-//  get speedY() { return this._speedY; }
-//  set speedY(speedY) { this._speedY = speedY; }
-
-  enableGravity() { this._gravity = true; }
-  disableGravity() { this._gravity = false; }
-  gravityEnabled() { return this._gravity; }
+//  get gravity() { return this.gravity; }
+//  set gravity(g) { this.gravity = g; }
 
   // behaviors
 
-  get behaviors() { return this._behaviors; }
-  set behaviors(behaviors) { this._behaviors = behaviors; }
+//  get behaviors() { return this.behaviors; }
+//  set behaviors(behaviors) { this.behaviors = behaviors; }
   addBehaviors(behaviors) {
     for (var i = 0; i < behaviors.length; i++) {
       this.addBehavior(behaviors[i]);
@@ -110,12 +92,12 @@ class Entity {
     }
     this.behaviors.push(behavior);
   }
-  resetBehaviors() { this._behaviors = []; }
+  resetBehaviors() { this.behaviors = []; }
 
   // animation timer
 
-  get animationTimer() { return this._animationTimer; }
-  set animationTimer(animationTimer) { return this._animationTimer = animationTimer; }
+//  get animationTimer() { return this.animationTimer; }
+//  set animationTimer(animationTimer) { return this.animationTimer = animationTimer; }
 
   // movement
 
