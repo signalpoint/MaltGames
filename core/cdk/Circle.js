@@ -1,6 +1,6 @@
 // ENTITY -> CIRCLE
 
-class Circle extends Entity {
+class Circle extends MkEntity {
 
   // PROPERTIES
   //  radius

@@ -1,6 +1,6 @@
 // ENTITY -> POLYGON
 
-class Polygon extends Entity {
+class Polygon extends MkEntity {
 
   // PROPERTIES
 

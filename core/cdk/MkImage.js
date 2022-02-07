@@ -1,4 +1,4 @@
-class MkImage extends Entity {
+class MkImage extends MkEntity {
 
   // PROPERTIES
   //  width

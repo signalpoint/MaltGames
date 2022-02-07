@@ -1,4 +1,4 @@
-class Entity {
+class MkEntity {
 
   constructor(id, type, entity) {
 

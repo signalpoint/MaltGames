@@ -1,4 +1,4 @@
-class MkSprite extends Entity {
+class MkSprite extends MkEntity {
 
   // PROPERTIES
   //  width {Number}
