@@ -86,9 +86,9 @@ class MkEntity {
     }
   }
   addBehavior(behavior) {
-    if (behavior.animated && !this.animationTimer) {
-      this.animationTimer = new AnimationTimer();
-      console.log('added timer to ' + this.id);
+    if (behavior.animated && !behavior.animationTimer) {
+      behavior.animationTimer = new AnimationTimer();
+      console.log('added timer to behavior for ' + this.id);
     }
     this.behaviors.push(behavior);
   }
