@@ -10,6 +10,7 @@ mk.CanvasGame = function(id, contextType) {
 
   g._id = id; // The canvas id.
   g._canvas = document.getElementById(id);
+  g._context = g._canvas.getContext(contextType);
   g._contextType = contextType;
   g._entities = {};
 
@@ -32,12 +33,16 @@ mk.CanvasGame = function(id, contextType) {
     y: 0
   };
 
+  // Update globals.
+  canvas = g._canvas;
+  context = g._context;
+
   // METHODS
 
   g.getId = function() { return this._id; };
   g.getCanvas = function() { return this._canvas; };
   g.getContextType = function() { return this._contextType; };
-  g.getContext = function() { return this.getCanvas().getContext(this.getContextType()); };
+  g.getContext = function() { return this._context; };
 
   g.getEntities = function() { return this._entities; };
   g.getEntity = function(type, id) {
@@ -65,31 +70,12 @@ mk.CanvasGame = function(id, contextType) {
     var entities = this.getEntities();
     if (entities) {
 
-//      // BEHAVIORS + DRAW
-//      for (const [type, items] of Object.entries(entities)) {
-//        for (const [id, entity] of Object.entries(items)) {
-//          if (entity.behaviors.length) {
-//            for (var i = 0; i < entity.behaviors.length; i++) {
-//              var behavior = entity.behaviors[i];
-//              if (behavior.animated && !entity.animationTimer.isRunning()) {
-//                entity.animationTimer.start();
-//              }
-//              behavior.do.call(behavior, entity, this.getTimeNow());
-//            }
-//          }
-//          entity.draw();
-//        }
-//      }
-
       // BEHAVIORS
       for (const [type, items] of Object.entries(entities)) {
         for (const [id, entity] of Object.entries(items)) {
           if (entity.behaviors.length) {
             for (var i = 0; i < entity.behaviors.length; i++) {
               var behavior = entity.behaviors[i];
-              if (behavior.animated && !entity.animationTimer.isRunning()) {
-                entity.animationTimer.start();
-              }
               behavior.do.call(behavior, entity, this.getTimeNow());
             }
           }
@@ -101,7 +87,12 @@ mk.CanvasGame = function(id, contextType) {
       // DRAW
       for (const [type, items] of Object.entries(entities)) {
         for (const [id, entity] of Object.entries(items)) {
-          entity.draw();
+          if (entity.painter && entity.painter.paint) { // remove condition once deprecated code is gone
+            entity.painter.paint.call(entity.painter, entity);
+          }
+          else {
+            entity.draw();
+          }
         }
       }
 
