@@ -32,13 +32,13 @@ AnimationTimer.prototype = {
     var elapsedTime = this.stopwatch.getElapsedTime(),
       percentComplete = elapsedTime / this.duration;
 
-    console.log('elapsedTime', elapsedTime);
-    console.log('percentComplete', elapsedTime + ' / ' + this.duration);
+//    console.log('elapsedTime', elapsedTime);
+//    console.log('percentComplete', elapsedTime + ' / ' + this.duration);
 
     if (!this.isRunning()) return undefined;
     if (this.timeWarp == undefined) return elapsedTime;
 
-    console.log('warp', elapsedTime + ' * (' + this.timeWarp(percentComplete) + ' / ' + percentComplete + ')');
+//    console.log('warp', elapsedTime + ' * (' + this.timeWarp(percentComplete) + ' / ' + percentComplete + ')');
 
     return elapsedTime * (this.timeWarp(percentComplete) / percentComplete);
 
