@@ -3,8 +3,9 @@ class MkSprite extends MkEntity {
   // PROPERTIES
   //  width {Number}
   //  height {Number}
-  //  sheets {Object}
-  //  sheet {Object}
+  //  sheet {String} The active sheet name
+  //  sheets {Object} Stores sheets by name. A sheet has these properties:
+  //
   //    frameWidth
   //    frameHeight
   //    frames
@@ -13,6 +14,7 @@ class MkSprite extends MkEntity {
   //    row
   //    col
   //    currentFrame
+  //
 
   constructor(id, entity) {
     super(id, 'Sprite', entity);
