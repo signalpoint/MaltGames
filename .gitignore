@@ -8,3 +8,7 @@ site/themes/*
 !site/themes/README.md
 
 vendor
+
+core/cdk/node_modules
+core/cdk/maltkit-cdk.js
+core/cdk/maltkit-cdk.min.js
