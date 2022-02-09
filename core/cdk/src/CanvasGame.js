@@ -4,6 +4,8 @@ var mk = mk ? mk : {};
 
 mk.CanvasGame = function(id, contextType) {
 
+  // TODO turn this intro a mk.CanvasGame.prototype so the IDE likes it!
+
   var g = this;
 
   // PROPERTIES
@@ -204,10 +206,12 @@ mk.CanvasGame = function(id, contextType) {
     this.isPaused() ? this.unpause() : this.pause();
     if (this.isPaused()) {
       this.setPauseTime(now);
+      console.log('paused');
     }
     else {
-      this.setStart(this.getStartTime() + now - this.getPauseTime());
+      this.setStartTime(this.getStartTime() + now - this.getPauseTime());
       this.setLastTime(now);
+      console.log('un-paused');
     }
   };
 
