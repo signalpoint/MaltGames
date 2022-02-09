@@ -41,6 +41,9 @@ mk.CanvasGame = function(id, contextType) {
 
   g.getId = function() { return this._id; };
   g.getCanvas = function() { return this._canvas; };
+  g.clearCanvas = function() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  };
   g.getContextType = function() { return this._contextType; };
   g.getContext = function() { return this._context; };
 
@@ -56,14 +59,14 @@ mk.CanvasGame = function(id, contextType) {
     }
   };
   g.addEntity = function(entity) {
-//    var entities = this.getEntities();
-//    var type = entity.type;
-//    if (!entities[type]) { entities[type] = {}; }
-//    entities[type][entity.id] = entity;
     var type = entity.type;
     if (!this._entities[type]) { this._entities[type] = {}; }
     this._entities[type][entity.id] = entity;
   };
+
+  /**
+   * PAINT
+   */
 
   g.draw = function() {
 
@@ -100,34 +103,15 @@ mk.CanvasGame = function(id, contextType) {
 
   };
 
+  /**
+   * ANIMATE
+   */
+
   g.refreshCanvas = function() {
     this.clearCanvas();
     this.draw();
   };
 
-  g.clearCanvas = function() {
-//    var canvas = this.getCanvas();
-//    var ctx = this.getContext();
-//
-//    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    game.getContext().clearRect(0,0, game.getCanvas().width, game.getCanvas().height);
-
-//    ctx.beginPath();
-//    ctx.fillStyle = "rgba(0, 0, 0, 255)";
-//    ctx.fillRect(0, 0, canvas.width, canvas.height);
-//    ctx.stroke();
-
-// Store the current transformation matrix
-//ctx.save();
-//
-//// Use the identity matrix while clearing the canvas
-//ctx.setTransform(1, 0, 0, 1, 0, 0);
-//ctx.clearRect(0, 0, canvas.width, canvas.height);
-//
-//// Restore the transform
-//ctx.restore();
-
-  };
 
   /**
    * FRAME RATE
@@ -139,14 +123,37 @@ mk.CanvasGame = function(id, contextType) {
   g.getStartingFps = function() { return this._startingFps; };
   g.setStartingFps = function(fps) { this._startingFps = fps; };
 
+  g.updateFrameRate = function(time) {
+//    console.log('time', time);
+//    console.log('getLastTime', this.getLastTime());
+    // Updates the frame rate based on how much time it took to render the last frame,
+    // or falls back to the starting fps.
+    this.setFps(
+      !this.getLastTime() ?
+        1000 / (time - this.getLastTime()) :
+        this.getStartingFps());
+  };
+
+  /**
+   * GRAVITY
+   */
+
   g.getGravity = function() { return this._gravity; };
   g.setGravity = function(g) { this._gravity = g; };
+
+  /**
+   * DIMENSIONS
+   */
 
   g.getHeight = function() { return this._height; };
   g.setHeight = function(height) {
     this._height = height;
     this.updatePixelsPerMeter();
   };
+
+  /**
+   * PIXELS
+   */
 
   g.getPixelsPerMeter = function() {
     return this._pixelsPerMeter;
@@ -158,19 +165,9 @@ mk.CanvasGame = function(id, contextType) {
     g.setPixelsPerMeter(this.getCanvas().height / this.getHeight());
   };
 
-  /**
-   * Updates the frame rate based on how much time it took to render the last frame, or falls back to the starting fps.
-   */
-  g.updateFrameRate = function(time) {
-//    console.log('time', time);
-//    console.log('getLastTime', this.getLastTime());
-    this.setFps(
-      !this.getLastTime() ?
-        1000 / (time - this.getLastTime()) :
-        this.getStartingFps());
-  };
-
-  g.pixelsPerFrame = function(velocity) { return velocity / this.getFps(); },
+  g.pixelsPerFrame = function(velocity) {
+    return velocity / this.getFps();
+  },
 
   /**
    * TIME
@@ -186,8 +183,6 @@ mk.CanvasGame = function(id, contextType) {
 
   /**
    * Updates the frame rate, game time and the last time the app rendered an update.
-   * @param {type} time
-   * @returns {undefined}
    */
   g.tick = function() {
     var time = this.getTimeNow();
@@ -216,6 +211,10 @@ mk.CanvasGame = function(id, contextType) {
       this.setLastTime(now);
     }
   };
+
+  /**
+   * MOUSE
+   */
 
   g.getMouse = function() { return this._mouse; };
   g.getMouseX = function() { return this._mouse.x; };
