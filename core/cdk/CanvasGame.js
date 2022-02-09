@@ -164,8 +164,7 @@ mk.CanvasGame = function(id, contextType) {
   g.updatePixelsPerMeter = function() {
     g.setPixelsPerMeter(this.getCanvas().height / this.getHeight());
   };
-
-  g.pixelsPerFrame = function(velocity) {
+  g.pixelsPerFrame = function(velocity) { // velocity = pixels per second
     return velocity / this.getFps();
   },
 
