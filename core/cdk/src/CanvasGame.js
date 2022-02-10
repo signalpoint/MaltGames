@@ -11,9 +11,13 @@ mk.CanvasGame = function(id, contextType) {
   // PROPERTIES
 
   g._id = id; // The canvas id.
+
   g._canvas = document.getElementById(id);
+  g._canvasDrawingArea = null;
+
   g._context = g._canvas.getContext(contextType);
   g._contextType = contextType;
+
   g._entities = {};
 
   g._fps = 0;
@@ -30,7 +34,7 @@ mk.CanvasGame = function(id, contextType) {
   g._paused = false;
   g._pauseTime = 0;
 
-  g._mouse = {
+  g._mouse = { // TODO convert to MkPoint
     x: 0,
     y: 0
   };
@@ -46,6 +50,14 @@ mk.CanvasGame = function(id, contextType) {
   g.clearCanvas = function() {
     context.clearRect(0, 0, canvas.width, canvas.height);
   };
+  g.getCanvasDrawingArea = function() { return this._canvasDrawingArea; };
+  g.saveCanvasDrawingArea = function() {
+    this._canvasDrawingArea = context.getImageData(0, 0, canvas.width, canvas.height);
+  };
+  g.restoreCanvasDrawingArea = function() {
+    context.putImageData(this._canvasDrawingArea, 0, 0);
+  };
+
   g.getContextType = function() { return this._contextType; };
   g.getContext = function() { return this._context; };
 
@@ -85,6 +97,11 @@ mk.CanvasGame = function(id, contextType) {
             }
           }
         }
+      }
+
+      // GRID
+      if (mk.gridShown) {
+        mk.gridDraw();
       }
 
       // THEN...
@@ -219,15 +236,26 @@ mk.CanvasGame = function(id, contextType) {
    * MOUSE
    */
 
-  g.getMouse = function() { return this._mouse; };
+//  g.getMouse = function() { return this._mouse; };
   g.getMouseX = function() { return this._mouse.x; };
   g.setMouseX = function(x) { this._mouse.x = x; };
   g.getMouseY = function() { return this._mouse.y; };
   g.setMouseY = function(y) { this._mouse.y = y; };
+  g.getMousePoint = function() { return this._mouse; };
 
   // PROXIES
 
   g.id = function() { return this.getId(); };
   g.ppm = function() { return this.getPixelsPerMeter(); };
+
+};
+
+// INTERFACES
+
+mk.CanvasGame.prototype.initMouse = function() {
+
+};
+
+mk.CanvasGame.prototype.initKeyboard = function() {
 
 };
