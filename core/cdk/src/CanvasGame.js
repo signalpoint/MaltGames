@@ -18,6 +18,8 @@ mk.CanvasGame = function(id, contextType) {
   g._context = g._canvas.getContext(contextType);
   g._contextType = contextType;
 
+  g._mods = {};
+
   g._entities = {};
 
   g._fps = 0;
@@ -60,6 +62,34 @@ mk.CanvasGame = function(id, contextType) {
 
   g.getContextType = function() { return this._contextType; };
   g.getContext = function() { return this._context; };
+
+  // MODS
+
+  g.getMods = function() { return this._mods; };
+  g.getMod = function(name) {
+    var mods = this.getMods();
+    return mods[name] ? mods[name] : null;
+  };
+
+  g.addMods = function(mods) {
+    for (var i = 0; i < mods.length; i++) {
+      this.addMod(mods[i]);
+    }
+  };
+  g.addMod = function(name, mod) {
+    this._mods[name] = mod;
+  };
+
+  g.initMods = function() {
+    var mods = this.getMods();
+    if (mods) {
+      for (const [name, mod] of Object.entries(mods)) {
+        if (mod.init) { mod.init(); }
+      }
+    }
+  };
+
+  // ENTITIES
 
   g.getEntities = function() { return this._entities; };
   g.getEntity = function(type, id) {
@@ -112,9 +142,7 @@ mk.CanvasGame = function(id, contextType) {
           if (entity.painter && entity.painter.paint) { // remove condition once deprecated code is gone
             entity.painter.paint.call(entity.painter, entity);
           }
-          else {
-            entity.draw();
-          }
+          else if (entity.draw) { entity.draw(); }
         }
       }
 
@@ -252,10 +280,14 @@ mk.CanvasGame = function(id, contextType) {
 
 // INTERFACES
 
-mk.CanvasGame.prototype.initMouse = function() {
+mk.CanvasGame.prototype = {
 
-};
+  initMouse: function() {
 
-mk.CanvasGame.prototype.initKeyboard = function() {
+  },
+
+  initKeyboard: function() {
+
+  }
 
 };
