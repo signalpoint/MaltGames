@@ -92,6 +92,9 @@ mk.CanvasGame = function(id, contextType) {
   // ENTITIES
 
   g.getEntities = function() { return this._entities; };
+  g.getEntitiesByType = function(type) {
+    return this._entities[type] ? this._entities[type] : null;
+  };
   g.getEntity = function(type, id) {
     var entities = this.getEntities();
     return entities[type] && entities[type][id] ? entities[type][id] : null;
