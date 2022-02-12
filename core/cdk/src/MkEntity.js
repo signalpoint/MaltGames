@@ -34,7 +34,6 @@ class MkEntity {
     // Attach any incoming entity properties to this.
     if (entity) {
       for (const [property, value] of Object.entries(entity)) {
-        //this['_' + property] = value;
         this[property] = value;
       }
     }
@@ -88,7 +87,6 @@ class MkEntity {
   addBehavior(behavior) {
     if (behavior.animated && !behavior.animationTimer) {
       behavior.animationTimer = new AnimationTimer();
-      console.log('added timer to behavior for ' + this.id);
     }
     this.behaviors.push(behavior);
   }
