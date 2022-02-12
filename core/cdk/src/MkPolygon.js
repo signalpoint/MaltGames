@@ -15,8 +15,6 @@ class MkPolygon extends MkEntity {
 
   addPoints() {
 
-    if (!this.points) {
-
       this.points = [];
 
       var angle = this.startAngle || 0;
@@ -27,8 +25,6 @@ class MkPolygon extends MkEntity {
         ));
         angle += 2 * Math.PI / this.sides;
       }
-
-    }
 
     return this.points.length ? this.points : null;
 
@@ -66,16 +62,14 @@ class MkPolygon extends MkEntity {
     context.restore();
   }
 
-  move(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-
   draw() {
-    context.beginPath();
+    context.save();
     this.createPath();
-    this.stroke();
-    this.fill();
+    context.strokeStyle = this.strokeStyle;
+    context.stroke();
+    context.fillStyle = this.fillStyle;
+    context.fill();
+    context.restore();
   }
 
 }
