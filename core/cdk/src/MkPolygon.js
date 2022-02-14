@@ -1,4 +1,4 @@
-class MkPolygon extends MkEntity {
+class MkPolygon extends MkShape {
 
   // PROPERTIES
   //
@@ -11,6 +11,20 @@ class MkPolygon extends MkEntity {
 
   constructor(id, entity) {
     super(id, 'MkPolygon', entity);
+  }
+
+  collidesWith(shape) {
+//    var axes = shape.getAxes();
+//    if (axes === undefined) { // Circle
+//      return mk.polygonCollidesWithCircle(this, shape);
+//    }
+//    else { // Polygon
+//      axes.concat(this.getAxes());
+//      return !this.separationOnAxes(axes, shape);
+//    }
+    return shape.type === 'MkCircle' ?
+      mk.polygonCollidesWithCircle(this, shape) :
+      mk.polygonCollidesWithPolygon(this, shape);
   }
 
   addPoints() {
@@ -30,6 +44,10 @@ class MkPolygon extends MkEntity {
 
   }
 
+  addPoint(x, y) {
+    this.poins.push(new MkPoint(x, y));
+  }
+
   createPath() {
 
     this.addPoints();
@@ -46,20 +64,62 @@ class MkPolygon extends MkEntity {
 
   }
 
-  stroke() {
-    context.save();
-    this.createPath();
-    context.strokeStyle = this.strokeStyle;
-    context.stroke();
-    context.restore();
+//  stroke() {
+//    context.save();
+//    this.createPath();
+//    context.strokeStyle = this.strokeStyle;
+//    context.stroke();
+//    context.restore();
+//  }
+//
+//  fill() {
+//    context.save();
+//    this.createPath();
+//    context.fillStyle = this.fillStyle;
+//    context.fill();
+//    context.restore();
+//  }
+
+  getAxes() {
+
+    var v1 = new MkVector(),
+      v2 = new MkVector(),
+      axes = [];
+
+    for (var i = 0; i < this.points.length - 1; i++) {
+      v1.x = this.points[i].x;
+      v1.y = this.points[i].y;
+      v2.x = this.points[i + 1].x;
+      v2.y = this.points[i + 1].y;
+      axes.push(v1.edge(v2).normal());
+    }
+
+    v1.x = this.points[this.points.length - 1].x;
+    v1.y = this.points[this.points.length - 1].y;
+    v2.x = this.points[0].x;
+    v2.y = this.points[0].y;
+    axes.push(v1.edge(v2).normal());
+
+    return axes;
+
   }
 
-  fill() {
-    context.save();
-    this.createPath();
-    context.fillStyle = this.fillStyle;
-    context.fill();
-    context.restore();
+  project(axis) {
+
+    var scalars = [],
+      v = new MkVector();
+
+    for (var i = 0; i < this.points.length - 1; i++) {
+      v.x = this.points[i].x;
+      v.y = this.points[i].y;
+      scalars.push(v.dotProduct(axis));
+    }
+
+    return new MkProjection(
+      Math.min.apply(Math, scalars),
+      Math.max.apply(Math, scalars)
+    );
+
   }
 
   draw() {
