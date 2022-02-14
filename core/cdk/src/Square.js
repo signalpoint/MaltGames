@@ -34,7 +34,7 @@ class Square extends Polygon {
 
   }
 
-  // BEHAVIORS
+  // AVAILABLE BEHAVIORS
 
   get fall() {
     return {
