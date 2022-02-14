@@ -1,5 +1,5 @@
-
-class MkRectangle extends MkEntity {
+// TODO this is a Polygon, it should extend MkPolygon, right?
+class MkRectangle extends MkShape {
 
   // PROPERTIES
   //
