@@ -12,6 +12,9 @@ var jsSrc = [
   './src/animation-timer.js',
 
   './src/CanvasGame.js',
+
+  './src/collision-detection.js',
+
   './src/MkMod.js',
   './src/MkEntity.js',
   './src/MkShape.js',
@@ -22,6 +25,7 @@ var jsSrc = [
   './src/MkRectangle.js',
   './src/MkVector.js',
   './src/MkProjection.js',
+  './src/MkMinimumTranslationVector.js',
   './src/Square.js',
   './src/MkImage.js',
   './src/MkSprite.js',
