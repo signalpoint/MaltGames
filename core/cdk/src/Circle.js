@@ -1,6 +1,6 @@
 // ENTITY -> CIRCLE
 
-class Circle extends MkEntity {
+class Circle extends MkShape {
 
   // PROPERTIES
   //  radius
@@ -9,30 +9,77 @@ class Circle extends MkEntity {
     super(id, 'Circle', entity);
   }
 
-  // METHODS
+  collidesWith(shape) {
+//    var axes = shape.getAxes(),
+//      distance;
+//    if (axes === undefined) { // Circle
+//      distance = Math.sqrt(
+//        Math.pow(shape.x - this.x, 2) +
+//        Math.pow(shape.y - this.y, 2)
+//      );
+//      return distance < Math.abs(this.radius + shape.radius);
+//    }
+//    else { // Polygon
+//      return mk.polygonCollidesWithCircle(shape, this);
+//    }
+    return shape.type === 'MkCircle' ?
+      mk.circleCollidesWithCircle(this, shape) :
+      mk.polygonCollidesWithCircle(shape, this);
+  }
 
-//  get radius() { return this.radius; }
+  getAxes() { return undefined; }
 
-  // INTERFACE
+  project(axis) {
+    var scalars = [],
+      dotProduct = new MkVector(this.x, this.y).dotProduct(axis);
+    scalars.push(dotProduct);
+    scalars.push(dotProduct + this.radius);
+    scalars.push(dotProduct - this.radius);
+//    console.log('axis', axis);
+//    console.log('scalars', scalars);
+//    console.log('point', point);
+//    console.log('dotProduct', dotProduct);
+    return new MkProjection(
+      Math.min.apply(Math, scalars),
+      Math.max.apply(Math, scalars)
+    );
+  }
+
+  createPath() {
+    context.beginPath();
+    context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+  }
 
   draw() {
 
-    var ctx = game.getContext();
+    context.save();
+    this.createPath();
+//    context.strokeStyle = this.strokeStyle;
+    context.stroke();
+//    context.fillStyle = this.fillStyle;
+    context.fill();
+    context.restore();
 
-    ctx.beginPath();
-
-    const circle = this.path2D();
-    circle.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-
-    for (const [prop, val] of Object.entries(this.ctx)) {
-      ctx[prop] = val;
-    }
-
-    ctx.fill(circle);
+//    var ctx = game.getContext();
+//
+//    ctx.beginPath();
+//
+//    const circle = this.path2D();
+//    circle.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+//
+//    // TODO no sir, I don't link this. Now that we know more about the context,
+//    // probably get rid of this property and rely on the draw/paint methodology instead.
+//    if (this.ctx) {
+//      for (const [prop, val] of Object.entries(this.ctx)) {
+//        ctx[prop] = val;
+//      }
+//    }
+//
+//    ctx.fill(circle);
 
   }
 
-  // BEHAVIORS
+  // AVAILABLE BEHAVIORS
 
   get fall() {
     return {
